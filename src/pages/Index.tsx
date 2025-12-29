@@ -9,15 +9,17 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import CustomCursor from '@/components/CustomCursor';
 import FloatingParticles from '@/components/FloatingParticles';
+import HalftoneOverlay from '@/components/HalftoneOverlay';
 
 const Index = () => {
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-background">
+    <div className="relative min-h-screen overflow-x-hidden bg-background paper-texture">
       {/* Background effects */}
       <FloatingParticles />
+      <HalftoneOverlay />
       <CustomCursor />
       
-      {/* Gradient overlay at top */}
+      {/* Spider-punk gradient overlay at top */}
       <div 
         className="pointer-events-none fixed inset-x-0 top-0 z-0 h-[50vh]"
         style={{

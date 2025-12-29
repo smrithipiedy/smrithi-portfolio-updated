@@ -48,6 +48,14 @@
     --pink-soft: 320 40% 70%;
     --cyan-code: 180 40% 60%;
     --silver: 240 5% 80%;
+    
+    /* Spider-Punk Paper Colors */
+    --paper-cream: 45 30% 90%;
+    --paper-pink: 340 70% 75%;
+    --paper-yellow: 50 90% 70%;
+    --paper-cyan: 185 70% 60%;
+    --ink-black: 0 0% 8%;
+    --halftone-dot: 270 50% 70%;
 
     /* Gradients */
     --gradient-lavender: linear-gradient(135deg, hsl(270 50% 70%), hsl(320 40% 70%));
@@ -57,6 +65,7 @@
     /* Shadows */
     --shadow-glow: 0 0 30px hsl(270 50% 70% / 0.2);
     --shadow-card: 0 4px 20px hsl(260 50% 5% / 0.5);
+    --shadow-paper: 4px 4px 0 hsl(0 0% 0% / 0.3);
 
     /* Sidebar */
     --sidebar-background: 260 25% 10%;
@@ -123,6 +132,199 @@
     background: var(--gradient-card);
     border: 1px solid hsl(var(--border));
     border-radius: var(--radius);
+  }
+
+  /* ========================================
+     SPIDER-PUNK PAPER CUTOUT STYLES
+     ======================================== */
+
+  /* Paper texture overlay */
+  .paper-texture {
+    position: relative;
+  }
+  
+  .paper-texture::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
+  /* Halftone dot pattern overlay */
+  .halftone-overlay {
+    position: relative;
+  }
+  
+  .halftone-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, hsl(var(--halftone-dot) / 0.15) 1px, transparent 1px);
+    background-size: 8px 8px;
+    pointer-events: none;
+  }
+
+  /* Paper cutout card style */
+  .paper-cutout {
+    background: hsl(var(--card));
+    border: 2px solid hsl(var(--ink-black));
+    box-shadow: var(--shadow-paper);
+    position: relative;
+    transform: rotate(var(--rotation, 0deg));
+  }
+
+  .paper-cutout::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: transparent;
+    border: 2px dashed hsl(var(--border) / 0.3);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  /* Torn edge effect */
+  .torn-edge {
+    position: relative;
+    clip-path: polygon(
+      0% 2%, 3% 0%, 8% 3%, 12% 0%, 18% 2%, 22% 0%, 28% 3%, 
+      35% 0%, 42% 2%, 48% 0%, 55% 3%, 62% 0%, 68% 2%, 
+      75% 0%, 82% 3%, 88% 0%, 95% 2%, 100% 0%,
+      100% 98%, 97% 100%, 92% 97%, 88% 100%, 82% 98%, 78% 100%, 
+      72% 97%, 65% 100%, 58% 98%, 52% 100%, 45% 97%, 38% 100%, 
+      32% 98%, 25% 100%, 18% 97%, 12% 100%, 5% 98%, 0% 100%
+    );
+  }
+
+  /* Ink splatter decoration */
+  .ink-splatter {
+    position: relative;
+  }
+  
+  .ink-splatter::before {
+    content: '✦';
+    position: absolute;
+    font-size: 1.5rem;
+    color: hsl(var(--primary));
+    animation: splatter-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes splatter-pulse {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.6; }
+    50% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+  }
+
+  /* Stop-motion jitter effect */
+  .stop-motion {
+    animation: jitter 0.15s steps(2) infinite;
+  }
+
+  @keyframes jitter {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(0.5px, -0.5px) rotate(0.3deg); }
+    50% { transform: translate(-0.5px, 0.5px) rotate(-0.3deg); }
+    75% { transform: translate(0.5px, 0.5px) rotate(0.2deg); }
+    100% { transform: translate(-0.5px, -0.5px) rotate(-0.2deg); }
+  }
+
+  /* Paper letter flying in animations */
+  @keyframes fly-in-left {
+    0% { 
+      opacity: 0;
+      transform: translateX(-200px) rotate(-30deg) scale(0.5);
+    }
+    60% { 
+      opacity: 1;
+      transform: translateX(10px) rotate(5deg) scale(1.1);
+    }
+    80% { 
+      transform: translateX(-5px) rotate(-2deg) scale(0.95);
+    }
+    100% { 
+      opacity: 1;
+      transform: translateX(0) rotate(var(--letter-rotation, 0deg)) scale(1);
+    }
+  }
+
+  @keyframes fly-in-right {
+    0% { 
+      opacity: 0;
+      transform: translateX(200px) rotate(30deg) scale(0.5);
+    }
+    60% { 
+      opacity: 1;
+      transform: translateX(-10px) rotate(-5deg) scale(1.1);
+    }
+    80% { 
+      transform: translateX(5px) rotate(2deg) scale(0.95);
+    }
+    100% { 
+      opacity: 1;
+      transform: translateX(0) rotate(var(--letter-rotation, 0deg)) scale(1);
+    }
+  }
+
+  @keyframes fly-in-top {
+    0% { 
+      opacity: 0;
+      transform: translateY(-200px) rotate(-25deg) scale(0.5);
+    }
+    60% { 
+      opacity: 1;
+      transform: translateY(10px) rotate(5deg) scale(1.1);
+    }
+    80% { 
+      transform: translateY(-5px) rotate(-2deg) scale(0.95);
+    }
+    100% { 
+      opacity: 1;
+      transform: translateY(0) rotate(var(--letter-rotation, 0deg)) scale(1);
+    }
+  }
+
+  @keyframes fly-in-bottom {
+    0% { 
+      opacity: 0;
+      transform: translateY(200px) rotate(25deg) scale(0.5);
+    }
+    60% { 
+      opacity: 1;
+      transform: translateY(-10px) rotate(-5deg) scale(1.1);
+    }
+    80% { 
+      transform: translateY(5px) rotate(2deg) scale(0.95);
+    }
+    100% { 
+      opacity: 1;
+      transform: translateY(0) rotate(var(--letter-rotation, 0deg)) scale(1);
+    }
+  }
+
+  .animate-fly-in-left {
+    animation: fly-in-left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  .animate-fly-in-right {
+    animation: fly-in-right 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  .animate-fly-in-top {
+    animation: fly-in-top 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  .animate-fly-in-bottom {
+    animation: fly-in-bottom 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  /* Comic book style border */
+  .comic-border {
+    border: 3px solid hsl(var(--ink-black));
+    box-shadow: 
+      4px 4px 0 hsl(var(--ink-black)),
+      inset 0 0 0 2px hsl(var(--card));
   }
 
   /* Animated gradient background */
@@ -206,6 +408,16 @@
   .hover-lift:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-glow);
+  }
+
+  /* Paper hover effect */
+  .paper-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .paper-hover:hover {
+    transform: translateY(-3px) rotate(1deg);
+    box-shadow: 6px 6px 0 hsl(0 0% 0% / 0.4);
   }
 
   /* Code syntax colors */
