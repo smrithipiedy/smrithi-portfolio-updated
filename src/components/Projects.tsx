@@ -168,7 +168,7 @@ const Projects = () => {
                 </div>
               </div>
             </div>
-          ))
+          ))}
         </div>
 
         {/* Other Projects */}
@@ -227,7 +227,7 @@ const Projects = () => {
                   ))}
                 </div>
               </div>
-            ))
+            ))}
           </div>
         </div>
       </div>
