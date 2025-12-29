@@ -45,48 +45,47 @@ const About = () => {
         </div>
 
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Image/Visual Side */}
+          {/* Photo Side */}
           <div 
             className={`relative transition-all delay-200 duration-700 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}
           >
             <div className="relative aspect-square max-w-md mx-auto lg:mx-0">
-              {/* Code editor style frame */}
-              <div className="absolute inset-0 rounded-xl border border-border bg-card/80 backdrop-blur-sm">
+              {/* Terminal-style photo frame */}
+              <div className="absolute inset-0 rounded-xl border border-border bg-card/80 backdrop-blur-sm overflow-hidden">
                 {/* Window controls */}
                 <div className="flex items-center gap-2 border-b border-border px-4 py-3">
                   <div className="h-3 w-3 rounded-full bg-destructive/60" />
                   <div className="h-3 w-3 rounded-full bg-yellow-500/60" />
                   <div className="h-3 w-3 rounded-full bg-green-500/60" />
-                  <span className="ml-4 font-mono text-xs text-muted-foreground">about.tsx</span>
+                  <span className="ml-4 font-mono text-xs text-muted-foreground">smrithi.jpg</span>
                 </div>
                 
-                {/* Content area with decorative code */}
-                <div className="p-6">
-                  <pre className="font-mono text-sm leading-relaxed">
-                    <code>
-                      <span className="text-pink-soft">const</span>{' '}
-                      <span className="text-cyan-code">developer</span>{' '}
-                      <span className="text-muted-foreground">=</span> {'{'}
-                      {'\n'}  <span className="text-primary">name</span>:{' '}
-                      <span className="text-cyan-code">"Smrithi"</span>,
-                      {'\n'}  <span className="text-primary">role</span>:{' '}
-                      <span className="text-cyan-code">"Web Developer"</span>,
-                      {'\n'}  <span className="text-primary">passion</span>:{' '}
-                      <span className="text-cyan-code">"Creating"</span>,
-                      {'\n'}  <span className="text-primary">loves</span>: [
-                      {'\n'}    <span className="text-cyan-code">"Clean Code"</span>,
-                      {'\n'}    <span className="text-cyan-code">"Good Design"</span>,
-                      {'\n'}    <span className="text-cyan-code">"Late Nights"</span>,
-                      {'\n'}  ],
-                      {'\n'}{'}'};
-                    </code>
-                  </pre>
+                {/* Photo placeholder */}
+                <div className="relative h-[calc(100%-44px)] w-full bg-gradient-to-br from-primary/20 via-background to-accent/20 flex items-center justify-center">
+                  {/* Replace this div with your actual image */}
+                  {/* <img src="/your-photo.jpg" alt="Smrithi" className="h-full w-full object-cover" /> */}
+                  
+                  {/* Placeholder content */}
+                  <div className="text-center">
+                    <div className="mx-auto mb-4 h-24 w-24 rounded-full border-2 border-dashed border-primary/50 flex items-center justify-center">
+                      <span className="font-mono text-4xl text-primary/70">S</span>
+                    </div>
+                    <p className="font-mono text-sm text-muted-foreground">your photo here</p>
+                  </div>
+                  
+                  {/* Subtle scan line effect */}
+                  <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,hsl(var(--foreground))_2px,hsl(var(--foreground))_4px)]" />
                 </div>
               </div>
 
               {/* Decorative elements */}
               <div className="absolute -right-4 -top-4 h-24 w-24 rounded-lg border border-primary/30 opacity-50" />
               <div className="absolute -bottom-6 -left-6 h-16 w-16 rounded-full bg-primary/10" />
+              
+              {/* Code snippet decoration */}
+              <div className="absolute -right-2 bottom-8 rounded-lg border border-border bg-card/90 px-3 py-2 font-mono text-xs text-muted-foreground backdrop-blur-sm">
+                <span className="text-pink-soft">import</span> Smrithi <span className="text-pink-soft">from</span> <span className="text-cyan-code">'./me'</span>
+              </div>
             </div>
           </div>
 
