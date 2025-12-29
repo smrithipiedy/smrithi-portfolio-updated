@@ -71,6 +71,16 @@ export default {
         "pink-soft": "hsl(var(--pink-soft))",
         "cyan-code": "hsl(var(--cyan-code))",
         silver: "hsl(var(--silver))",
+        // Desi maximalist colors
+        gold: {
+          DEFAULT: "hsl(var(--gold))",
+          muted: "hsl(var(--gold-muted))",
+        },
+        saffron: "hsl(var(--saffron))",
+        magenta: "hsl(var(--magenta))",
+        "teal-desi": "hsl(var(--teal-desi))",
+        marigold: "hsl(var(--marigold))",
+        ruby: "hsl(var(--ruby))",
       },
       borderRadius: {
         lg: "var(--radius)",

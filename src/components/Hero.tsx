@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Github, Linkedin, Mail, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { OrnateCorner } from '@/components/DesiDecorations';
 
 const Hero = () => {
   const [typedText, setTypedText] = useState('');
@@ -38,14 +39,20 @@ const Hero = () => {
 
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
+      {/* Ornate corners */}
+      <OrnateCorner position="top-left" />
+      <OrnateCorner position="top-right" />
+      <OrnateCorner position="bottom-left" />
+      <OrnateCorner position="bottom-right" />
+      
       {/* Decorative elements */}
       <div className="absolute left-10 top-1/4 h-20 w-20 animate-float rounded-lg border border-primary/20 opacity-30" />
-      <div className="absolute right-1/4 top-20 h-3 w-3 animate-pulse rounded-full bg-primary" />
+      <div className="absolute right-1/4 top-20 h-3 w-3 animate-pulse rounded-full bg-gold" />
       <div 
         className="absolute bottom-1/4 left-1/3 h-16 w-16 animate-float-slow opacity-20"
         style={{ animationDelay: '1s' }}
       >
-        <svg viewBox="0 0 100 100" className="h-full w-full text-primary">
+        <svg viewBox="0 0 100 100" className="h-full w-full text-gold">
           <polygon 
             points="50,10 90,90 10,90" 
             fill="none" 
@@ -54,7 +61,7 @@ const Hero = () => {
           />
         </svg>
       </div>
-      <div className="absolute right-20 top-1/3 h-8 w-8 animate-float rounded-full border-2 border-pink-soft/30 opacity-40" />
+      <div className="absolute right-20 top-1/3 h-8 w-8 animate-float rounded-full border-2 border-magenta/30 opacity-40" />
 
       <div className="relative z-10 text-center">
         {/* Greeting */}
@@ -70,7 +77,7 @@ const Hero = () => {
           className="mb-6 text-5xl font-bold tracking-tight text-foreground opacity-0 animate-fade-in md:text-7xl"
           style={{ animationDelay: '0.4s' }}
         >
-          Smrithi<span className="text-primary">.</span>
+          <span className="gold-shimmer">Smrithi</span><span className="text-magenta">.</span>
         </h1>
 
         {/* Typing effect */}

@@ -9,13 +9,19 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import CustomCursor from '@/components/CustomCursor';
 import FloatingParticles from '@/components/FloatingParticles';
+import { MandalaRing, DesiDivider, FloatingPetals } from '@/components/DesiDecorations';
 
 const Index = () => {
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-background">
+    <div className="relative min-h-screen overflow-x-hidden bg-background paisley-pattern">
       {/* Background effects */}
       <FloatingParticles />
+      <FloatingPetals />
       <CustomCursor />
+      
+      {/* Decorative mandala rings */}
+      <MandalaRing className="-right-32 top-1/4" />
+      <MandalaRing className="-left-32 top-2/3" />
       
       {/* Gradient overlay at top */}
       <div 
@@ -31,11 +37,17 @@ const Index = () => {
       {/* Main content */}
       <main className="relative z-10">
         <Hero />
+        <DesiDivider className="container mx-auto" />
         <About />
+        <DesiDivider className="container mx-auto" />
         <Timeline />
+        <DesiDivider className="container mx-auto" />
         <Skills />
+        <DesiDivider className="container mx-auto" />
         <Projects />
+        <DesiDivider className="container mx-auto" />
         <Certifications />
+        <DesiDivider className="container mx-auto" />
         <Contact />
       </main>
 
