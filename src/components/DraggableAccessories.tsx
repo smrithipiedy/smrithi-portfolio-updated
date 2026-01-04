@@ -10,20 +10,26 @@ interface Sticker {
   rotation: number;
 }
 
-// Evenly spaced positions around the image (avoiding top textbox and center person)
+// Scattered positions around the image (avoiding top textbox and center person)
 const stickers: Sticker[] = [
-  // Left side (top to bottom)
-  { id: 'sparkles', icon: <Sparkles className="w-6 h-6" />, color: 'text-yellow-400', label: 'Sparkles', initialPosition: { x: -50, y: 120 }, rotation: -12 },
-  { id: 'heart', icon: <Heart className="w-5 h-5" />, color: 'text-pink-400', label: 'Heart', initialPosition: { x: -45, y: 220 }, rotation: 8 },
-  { id: 'coffee', icon: <Coffee className="w-5 h-5" />, color: 'text-amber-500', label: 'Coffee', initialPosition: { x: -50, y: 320 }, rotation: -15 },
-  // Right side (top to bottom)
-  { id: 'star', icon: <Star className="w-6 h-6" />, color: 'text-cyan-400', label: 'Star', initialPosition: { x: 350, y: 120 }, rotation: 15 },
-  { id: 'zap', icon: <Zap className="w-6 h-6" />, color: 'text-purple-400', label: 'Zap', initialPosition: { x: 355, y: 220 }, rotation: -10 },
-  { id: 'rocket', icon: <Rocket className="w-5 h-5" />, color: 'text-orange-400', label: 'Rocket', initialPosition: { x: 350, y: 320 }, rotation: 20 },
-  // Bottom (left to right)
-  { id: 'gaming', icon: <Gamepad2 className="w-6 h-6" />, color: 'text-green-400', label: 'Gaming', initialPosition: { x: 60, y: 400 }, rotation: -8 },
-  { id: 'books', icon: <BookOpen className="w-5 h-5" />, color: 'text-rose-400', label: 'Reading', initialPosition: { x: 160, y: 410 }, rotation: 12 },
-  { id: 'photography', icon: <Camera className="w-5 h-5" />, color: 'text-indigo-400', label: 'Photography', initialPosition: { x: 260, y: 400 }, rotation: -5 },
+  // Upper left area
+  { id: 'sparkles', icon: <Sparkles className="w-6 h-6" />, color: 'text-yellow-400', label: 'Sparkles', initialPosition: { x: -55, y: 100 }, rotation: -18 },
+  // Mid-left
+  { id: 'heart', icon: <Heart className="w-5 h-5" />, color: 'text-pink-400', label: 'Heart', initialPosition: { x: -40, y: 250 }, rotation: 12 },
+  // Lower left
+  { id: 'coffee', icon: <Coffee className="w-5 h-5" />, color: 'text-amber-500', label: 'Coffee', initialPosition: { x: -30, y: 380 }, rotation: -8 },
+  // Upper right
+  { id: 'star', icon: <Star className="w-6 h-6" />, color: 'text-cyan-400', label: 'Star', initialPosition: { x: 340, y: 90 }, rotation: 22 },
+  // Mid-right (higher)
+  { id: 'zap', icon: <Zap className="w-6 h-6" />, color: 'text-purple-400', label: 'Zap', initialPosition: { x: 360, y: 200 }, rotation: -15 },
+  // Right side (lower)
+  { id: 'rocket', icon: <Rocket className="w-5 h-5" />, color: 'text-orange-400', label: 'Rocket', initialPosition: { x: 345, y: 340 }, rotation: 25 },
+  // Bottom left corner
+  { id: 'gaming', icon: <Gamepad2 className="w-6 h-6" />, color: 'text-green-400', label: 'Gaming', initialPosition: { x: 40, y: 420 }, rotation: -12 },
+  // Bottom center
+  { id: 'books', icon: <BookOpen className="w-5 h-5" />, color: 'text-rose-400', label: 'Reading', initialPosition: { x: 180, y: 430 }, rotation: 8 },
+  // Bottom right area
+  { id: 'photography', icon: <Camera className="w-5 h-5" />, color: 'text-indigo-400', label: 'Photography', initialPosition: { x: 290, y: 415 }, rotation: -20 },
 ];
 
 interface StickerPosition {
