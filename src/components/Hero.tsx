@@ -37,30 +37,24 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 crt-scanlines vhs-noise">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
       {/* Decorative elements */}
-      <div className="absolute left-10 top-1/4 h-20 w-20 animate-float rounded-lg border-2 border-primary/30 opacity-40" style={{ boxShadow: '3px 3px 0 hsl(var(--primary) / 0.2)' }} />
-      <div className="absolute right-1/4 top-20 h-3 w-3 animate-pulse rounded-full bg-primary" style={{ boxShadow: '0 0 10px hsl(var(--primary))' }} />
+      <div className="absolute left-10 top-1/4 h-20 w-20 animate-float rounded-lg border border-primary/20 opacity-20" />
+      <div className="absolute right-1/4 top-20 h-3 w-3 animate-pulse rounded-full bg-primary/50" />
       <div 
-        className="absolute bottom-1/4 left-1/3 h-16 w-16 animate-float-slow opacity-30"
+        className="absolute bottom-1/4 left-1/3 h-16 w-16 animate-float-slow opacity-20"
         style={{ animationDelay: '1s' }}
       >
-        <svg viewBox="0 0 100 100" className="h-full w-full text-cyan-code">
+        <svg viewBox="0 0 100 100" className="h-full w-full text-primary/30">
           <polygon 
             points="50,10 90,90 10,90" 
             fill="none" 
             stroke="currentColor" 
-            strokeWidth="3"
+            strokeWidth="2"
           />
         </svg>
       </div>
-      <div className="absolute right-20 top-1/3 h-8 w-8 animate-float rounded-full border-2 border-pink-soft/40 opacity-50" />
-      
-      {/* Retro grid lines */}
-      <div className="absolute inset-0 opacity-[0.02]" style={{
-        backgroundImage: 'linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)',
-        backgroundSize: '50px 50px'
-      }} />
+      <div className="absolute right-20 top-1/3 h-8 w-8 animate-float rounded-full border border-primary/20 opacity-30" />
 
       <div className="relative z-10 text-center">
         {/* Greeting */}
@@ -71,21 +65,21 @@ const Hero = () => {
           {'// Hello, World! I\'m'}
         </p>
 
-        {/* Name with retro glow */}
+        {/* Name */}
         <h1 
           className="mb-6 text-5xl font-bold tracking-tight text-foreground opacity-0 animate-fade-in md:text-7xl"
           style={{ animationDelay: '0.4s' }}
         >
-          <span className="glow-text">Smrithi</span><span className="text-primary glow-text">.</span>
+          Smrithi<span className="text-primary">.</span>
         </h1>
 
-        {/* Typing effect with retro styling */}
+        {/* Typing effect */}
         <div 
           className="mb-8 flex items-center justify-center gap-2 opacity-0 animate-fade-in"
           style={{ animationDelay: '0.6s' }}
         >
           <span className="font-mono text-xl text-muted-foreground md:text-2xl">{'<'}</span>
-          <span className="text-xl text-primary md:text-2xl glow-neon font-retro text-2xl md:text-3xl">{typedText}</span>
+          <span className="text-xl text-primary md:text-2xl">{typedText}</span>
           <span 
             className={`text-xl text-primary md:text-2xl transition-opacity ${
               showCursor ? 'opacity-100' : 'opacity-0'
@@ -113,8 +107,7 @@ const Hero = () => {
             href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="group rounded-lg border-2 border-border bg-card/50 p-3 transition-all duration-200 hover:border-primary hover:bg-primary/10 hover:translate-x-[-2px] hover:translate-y-[-2px]"
-            style={{ boxShadow: '2px 2px 0 hsl(var(--border))' }}
+            className="group rounded-lg border border-border bg-card/50 p-3 transition-all hover:border-primary hover:bg-card"
             aria-label="GitHub"
           >
             <Github className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-primary" />
@@ -123,16 +116,14 @@ const Hero = () => {
             href="https://linkedin.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="group rounded-lg border-2 border-border bg-card/50 p-3 transition-all duration-200 hover:border-primary hover:bg-primary/10 hover:translate-x-[-2px] hover:translate-y-[-2px]"
-            style={{ boxShadow: '2px 2px 0 hsl(var(--border))' }}
+            className="group rounded-lg border border-border bg-card/50 p-3 transition-all hover:border-primary hover:bg-card"
             aria-label="LinkedIn"
           >
             <Linkedin className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-primary" />
           </a>
           <a
             href="mailto:hello@smrithi.dev"
-            className="group rounded-lg border-2 border-border bg-card/50 p-3 transition-all duration-200 hover:border-primary hover:bg-primary/10 hover:translate-x-[-2px] hover:translate-y-[-2px]"
-            style={{ boxShadow: '2px 2px 0 hsl(var(--border))' }}
+            className="group rounded-lg border border-border bg-card/50 p-3 transition-all hover:border-primary hover:bg-card"
             aria-label="Email"
           >
             <Mail className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-primary" />
@@ -146,7 +137,7 @@ const Hero = () => {
         >
           <Button
             size="lg"
-            className="retro-button group relative overflow-hidden px-8 py-6 font-mono"
+            className="group relative overflow-hidden px-8 py-6 font-mono"
             onClick={() => scrollToSection('#projects')}
           >
             <span className="relative z-10">view_projects()</span>
