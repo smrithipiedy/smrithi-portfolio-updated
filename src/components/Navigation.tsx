@@ -40,7 +40,7 @@ const Navigation = () => {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between px-6">
-        {/* Logo */}
+        {/* Logo with retro style */}
         <a
           href="#"
           className="flex items-center gap-2 text-xl font-semibold text-foreground transition-colors hover:text-primary"
@@ -49,9 +49,9 @@ const Navigation = () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
         >
-          <Terminal className="h-5 w-5 text-primary" />
+          <Terminal className="h-5 w-5 text-primary" style={{ filter: 'drop-shadow(0 0 4px hsl(var(--primary)))' }} />
           <span className="font-mono">smrithi</span>
-          <span className="text-primary">_</span>
+          <span className="text-primary animate-flicker">_</span>
         </a>
 
         {/* Desktop Navigation */}

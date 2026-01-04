@@ -71,6 +71,9 @@ export default {
         "pink-soft": "hsl(var(--pink-soft))",
         "cyan-code": "hsl(var(--cyan-code))",
         silver: "hsl(var(--silver))",
+        "retro-orange": "hsl(var(--retro-orange))",
+        "retro-yellow": "hsl(var(--retro-yellow))",
+        "retro-green": "hsl(var(--retro-green))",
       },
       borderRadius: {
         lg: "var(--radius)",
