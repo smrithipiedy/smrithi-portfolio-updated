@@ -1,6 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import { Code2, Palette, Coffee, Sparkles } from 'lucide-react';
-import smrithiPhoto from '@/assets/smrithi-photo.png';
+import smrithiPhoto from '@/assets/smrithi-photo.jpg';
+import DraggableAccessories from './DraggableAccessories';
+
+interface PlacedAccessory {
+  id: string;
+  accessoryId: string;
+  x: number;
+  y: number;
+  icon: React.ReactNode;
+  color: string;
+}
 
 const stats = [
   { icon: Code2, label: 'Years Coding', value: '3+' },
@@ -11,7 +21,9 @@ const stats = [
 
 const About = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const dropZoneRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [placedAccessories, setPlacedAccessories] = useState<PlacedAccessory[]>([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -50,37 +62,48 @@ const About = () => {
           <div 
             className={`relative transition-all delay-200 duration-700 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}
           >
-            <div className="relative aspect-square max-w-md mx-auto lg:mx-0">
+            <div className="relative aspect-square max-w-md mx-auto lg:mx-0 lg:ml-16">
+              {/* Glow effect behind photo */}
+              <div className="absolute inset-4 rounded-xl bg-gradient-to-br from-primary/40 via-lavender/30 to-pink-soft/40 blur-2xl opacity-60 animate-pulse-glow" />
+              
               {/* Terminal-style photo frame */}
-              <div className="absolute inset-0 rounded-xl border border-border bg-card/80 backdrop-blur-sm overflow-visible">
+              <div 
+                ref={dropZoneRef}
+                className="absolute inset-0 rounded-xl border border-border bg-card/80 backdrop-blur-sm overflow-visible shadow-2xl shadow-primary/20"
+              >
                 {/* Window controls */}
                 <div className="flex items-center gap-2 border-b border-border px-4 py-3 relative z-0">
                   <div className="h-3 w-3 rounded-full bg-destructive/60" />
                   <div className="h-3 w-3 rounded-full bg-yellow-500/60" />
                   <div className="h-3 w-3 rounded-full bg-green-500/60" />
-                  <span className="ml-4 font-mono text-xs text-muted-foreground">smrithi.png</span>
+                  <span className="ml-4 font-mono text-xs text-muted-foreground">smrithi.jpg</span>
                 </div>
                 
-                {/* Photo container with gradient background */}
-                <div className="relative h-[calc(100%-44px)] w-full bg-gradient-to-br from-primary/10 via-background to-accent/10">
+                {/* Photo container */}
+                <div className="relative h-[calc(100%-44px)] w-full bg-gradient-to-br from-primary/10 via-background to-accent/10 overflow-hidden rounded-b-xl">
+                  <img 
+                    src={smrithiPhoto} 
+                    alt="Smrithi" 
+                    className="h-full w-full object-cover object-top" 
+                  />
                   {/* Subtle scan line effect */}
                   <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,hsl(var(--foreground))_2px,hsl(var(--foreground))_4px)]" />
                 </div>
+                
+                {/* Draggable accessories */}
+                <DraggableAccessories 
+                  dropZoneRef={dropZoneRef} 
+                  placedAccessories={placedAccessories}
+                  setPlacedAccessories={setPlacedAccessories}
+                />
               </div>
-              
-              {/* Photo positioned to overlap the terminal header */}
-              <img 
-                src={smrithiPhoto} 
-                alt="Smrithi" 
-                className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[110%] w-auto object-contain object-bottom z-10" 
-              />
 
               {/* Decorative elements */}
               <div className="absolute -right-4 -top-4 h-24 w-24 rounded-lg border border-primary/30 opacity-50" />
-              <div className="absolute -bottom-6 -left-6 h-16 w-16 rounded-full bg-primary/10" />
+              <div className="absolute -bottom-6 -left-6 h-16 w-16 rounded-full bg-primary/10 blur-sm" />
               
               {/* Code snippet decoration */}
-              <div className="absolute -right-2 bottom-8 rounded-lg border border-border bg-card/90 px-3 py-2 font-mono text-xs text-muted-foreground backdrop-blur-sm">
+              <div className="absolute -right-2 bottom-8 rounded-lg border border-border bg-card/90 px-3 py-2 font-mono text-xs text-muted-foreground backdrop-blur-sm z-30">
                 <span className="text-pink-soft">import</span> Smrithi <span className="text-pink-soft">from</span> <span className="text-cyan-code">'./me'</span>
               </div>
             </div>
