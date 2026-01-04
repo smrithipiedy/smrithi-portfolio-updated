@@ -68,7 +68,7 @@ const Navigation = () => {
           ))}
           <Button
             variant="outline"
-            className="border-primary/30 bg-transparent text-foreground hover:border-primary hover:bg-primary/10"
+            className="border-primary/50 bg-primary/10 text-foreground hover:border-primary hover:bg-primary/20 hover:text-foreground"
             onClick={() => handleNavClick('#contact')}
           >
             <span className="font-mono text-sm">say_hello()</span>
@@ -113,7 +113,7 @@ const Navigation = () => {
             <Button
               variant="outline"
               size="lg"
-              className="mt-4 border-primary/30 bg-transparent text-foreground hover:border-primary hover:bg-primary/10"
+              className="mt-4 border-primary/50 bg-primary/10 text-foreground hover:border-primary hover:bg-primary/20 hover:text-foreground"
               onClick={() => handleNavClick('#contact')}
             >
               <span className="font-mono">say_hello()</span>

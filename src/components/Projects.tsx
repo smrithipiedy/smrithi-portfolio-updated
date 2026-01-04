@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ExternalLink, Github, Folder } from 'lucide-react';
+import { ExternalLink, Github, Folder, ArrowUpRight } from 'lucide-react';
 
 interface Project {
   id: number;
@@ -70,6 +70,7 @@ const projects: Project[] = [
 const Projects = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -111,62 +112,101 @@ const Projects = () => {
           {featuredProjects.map((project, index) => (
             <div
               key={project.id}
-              className={`group relative overflow-hidden rounded-xl border border-border bg-card/80 transition-all duration-500 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 ${
+              className={`group relative overflow-hidden rounded-xl border border-border bg-card/80 transition-all duration-500 ${
                 isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
               }`}
               style={{ transitionDelay: `${index * 100}ms` }}
+              onMouseEnter={() => setHoveredProject(project.id)}
+              onMouseLeave={() => setHoveredProject(null)}
             >
-              {/* Project image placeholder */}
-              <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-secondary to-card">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Folder className="h-16 w-16 text-primary/20" />
-                </div>
-                {/* Hover overlay */}
-                <div className="absolute inset-0 flex items-center justify-center gap-4 bg-background/80 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-full bg-primary p-3 text-primary-foreground transition-transform hover:scale-110"
-                      aria-label="View live site"
-                    >
-                      <ExternalLink className="h-5 w-5" />
-                    </a>
-                  )}
-                  {project.githubUrl && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-full border border-border bg-card p-3 text-foreground transition-transform hover:scale-110"
-                      aria-label="View source code"
-                    >
-                      <Github className="h-5 w-5" />
-                    </a>
-                  )}
-                </div>
+              {/* Animated gradient border on hover */}
+              <div className={`absolute inset-0 rounded-xl bg-gradient-to-r from-primary via-lavender to-pink-soft opacity-0 transition-opacity duration-500 ${
+                hoveredProject === project.id ? 'opacity-100' : ''
+              }`} style={{ padding: '1px' }}>
+                <div className="h-full w-full rounded-xl bg-card" />
               </div>
+              
+              {/* Card content */}
+              <div className="relative z-10">
+                {/* Project image placeholder */}
+                <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-secondary to-card">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Folder className={`h-16 w-16 transition-all duration-500 ${
+                      hoveredProject === project.id ? 'text-primary scale-110 rotate-6' : 'text-primary/20'
+                    }`} />
+                  </div>
+                  {/* Floating orbs on hover */}
+                  <div className={`absolute top-4 right-4 h-8 w-8 rounded-full bg-primary/30 blur-lg transition-all duration-700 ${
+                    hoveredProject === project.id ? 'opacity-100 scale-150' : 'opacity-0 scale-100'
+                  }`} />
+                  <div className={`absolute bottom-4 left-4 h-6 w-6 rounded-full bg-lavender/40 blur-md transition-all duration-500 delay-100 ${
+                    hoveredProject === project.id ? 'opacity-100 scale-150' : 'opacity-0 scale-100'
+                  }`} />
+                  
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center gap-4 bg-background/80 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-full bg-primary p-3 text-primary-foreground transition-all hover:scale-110 hover:shadow-lg hover:shadow-primary/30"
+                        aria-label="View live site"
+                      >
+                        <ExternalLink className="h-5 w-5" />
+                      </a>
+                    )}
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-full border border-border bg-card p-3 text-foreground transition-all hover:scale-110 hover:border-primary hover:shadow-lg"
+                        aria-label="View source code"
+                      >
+                        <Github className="h-5 w-5" />
+                      </a>
+                    )}
+                  </div>
+                </div>
 
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="mb-2 text-lg font-semibold text-foreground transition-colors group-hover:text-primary">
-                  {project.title}
-                </h3>
-                <p className="mb-4 text-sm text-muted-foreground line-clamp-2">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full bg-secondary px-3 py-1 font-mono text-xs text-muted-foreground"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                {/* Content */}
+                <div className="p-6">
+                  <div className="flex items-start justify-between">
+                    <h3 className={`mb-2 text-lg font-semibold transition-colors duration-300 ${
+                      hoveredProject === project.id ? 'text-primary' : 'text-foreground'
+                    }`}>
+                      {project.title}
+                    </h3>
+                    <ArrowUpRight className={`h-5 w-5 transition-all duration-300 ${
+                      hoveredProject === project.id ? 'text-primary translate-x-0.5 -translate-y-0.5' : 'text-muted-foreground'
+                    }`} />
+                  </div>
+                  <p className="mb-4 text-sm text-muted-foreground line-clamp-2">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag, tagIndex) => (
+                      <span
+                        key={tag}
+                        className={`rounded-full px-3 py-1 font-mono text-xs transition-all duration-300 ${
+                          hoveredProject === project.id 
+                            ? 'bg-primary/20 text-primary' 
+                            : 'bg-secondary text-muted-foreground'
+                        }`}
+                        style={{ transitionDelay: `${tagIndex * 50}ms` }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
+              
+              {/* Corner accent */}
+              <div className={`absolute -bottom-2 -right-2 h-16 w-16 rounded-full bg-primary/10 blur-xl transition-all duration-500 ${
+                hoveredProject === project.id ? 'scale-150 opacity-100' : 'scale-100 opacity-0'
+              }`} />
             </div>
           ))}
         </div>
@@ -180,51 +220,56 @@ const Projects = () => {
             {otherProjects.map((project, index) => (
               <div
                 key={project.id}
-                className="group rounded-lg border border-border bg-card/50 p-5 transition-all duration-300 hover:border-primary/30 hover:bg-card"
+                className="group relative rounded-lg border border-border bg-card/50 p-5 transition-all duration-300 hover:border-primary/50 hover:bg-card hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5"
                 style={{ transitionDelay: `${600 + index * 100}ms` }}
               >
-                <div className="mb-4 flex items-center justify-between">
-                  <Folder className="h-6 w-6 text-primary" />
-                  <div className="flex gap-3">
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground transition-colors hover:text-primary"
-                        aria-label="View source code"
-                      >
-                        <Github className="h-4 w-4" />
-                      </a>
-                    )}
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground transition-colors hover:text-primary"
-                        aria-label="View live site"
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    )}
+                {/* Subtle gradient background on hover */}
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/5 via-transparent to-lavender/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                
+                <div className="relative z-10">
+                  <div className="mb-4 flex items-center justify-between">
+                    <Folder className="h-6 w-6 text-primary transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6" />
+                    <div className="flex gap-3">
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-muted-foreground transition-all duration-200 hover:text-primary hover:scale-110"
+                          aria-label="View source code"
+                        >
+                          <Github className="h-4 w-4" />
+                        </a>
+                      )}
+                      {project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-muted-foreground transition-all duration-200 hover:text-primary hover:scale-110"
+                          aria-label="View live site"
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <h4 className="mb-2 font-semibold text-foreground transition-colors group-hover:text-primary">
-                  {project.title}
-                </h4>
-                <p className="mb-4 text-sm text-muted-foreground line-clamp-2">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {project.tags.slice(0, 3).map((tag) => (
-                    <span
-                      key={tag}
-                      className="font-mono text-xs text-muted-foreground"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                  <h4 className="mb-2 font-semibold text-foreground transition-colors group-hover:text-primary">
+                    {project.title}
+                  </h4>
+                  <p className="mb-4 text-sm text-muted-foreground line-clamp-2">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tags.slice(0, 3).map((tag) => (
+                      <span
+                        key={tag}
+                        className="font-mono text-xs text-muted-foreground transition-colors group-hover:text-primary/70"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
