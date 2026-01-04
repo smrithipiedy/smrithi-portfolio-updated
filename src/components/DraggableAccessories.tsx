@@ -115,9 +115,8 @@ const DraggableAccessories = () => {
       </div>
       
       {stickers.map((sticker) => {
-        const pos = positions[sticker.id];
-        const stickerData = stickers.find(s => s.id === sticker.id);
-        const isAtInitial = pos.x === stickerData?.initialPosition.x && pos.y === stickerData?.initialPosition.y;
+        const pos = positions[sticker.id] || sticker.initialPosition;
+        const isAtInitial = pos.x === sticker.initialPosition.x && pos.y === sticker.initialPosition.y;
         
         return (
           <div
@@ -128,7 +127,7 @@ const DraggableAccessories = () => {
             style={{
               left: pos.x,
               top: pos.y,
-              transform: `rotate(${stickerData?.rotation || 0}deg)`,
+              transform: `rotate(${sticker.rotation || 0}deg)`,
               filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))',
             }}
             onMouseDown={(e) => handleDragStart(e, sticker.id)}
