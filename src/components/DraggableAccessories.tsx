@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Sparkles, Star, Heart, Zap, Coffee, Code2, Rocket, Gamepad2, BookOpen, Camera } from 'lucide-react';
 
 interface Sticker {
@@ -13,13 +13,13 @@ interface Sticker {
 // Scattered positions around the image (avoiding top textbox and center person)
 const stickers: Sticker[] = [
   // Upper left area
-  { id: 'sparkles', icon: <Sparkles className="w-6 h-6" />, color: 'text-yellow-400', label: 'Sparkles', initialPosition: { x: -55, y: 100 }, rotation: -18 },
+  { id: 'sparkles', icon: <Sparkles className="w-6 h-6" />, color: 'text-yellow-400', label: 'Sparkles', initialPosition: { x: -55, y: 145 }, rotation: -18 },
   // Mid-left
   { id: 'heart', icon: <Heart className="w-5 h-5" />, color: 'text-pink-400', label: 'Heart', initialPosition: { x: -40, y: 250 }, rotation: 12 },
   // Lower left
   { id: 'coffee', icon: <Coffee className="w-5 h-5" />, color: 'text-amber-500', label: 'Coffee', initialPosition: { x: -30, y: 380 }, rotation: -8 },
   // Upper right
-  { id: 'star', icon: <Star className="w-6 h-6" />, color: 'text-cyan-400', label: 'Star', initialPosition: { x: 340, y: 90 }, rotation: 22 },
+  { id: 'star', icon: <Star className="w-6 h-6" />, color: 'text-cyan-400', label: 'Star', initialPosition: { x: 340, y: 140 }, rotation: 22 },
   // Mid-right (higher)
   { id: 'zap', icon: <Zap className="w-6 h-6" />, color: 'text-purple-400', label: 'Zap', initialPosition: { x: 360, y: 200 }, rotation: -15 },
   // Right side (lower)
@@ -45,12 +45,57 @@ const DraggableAccessories = () => {
   const dragOffset = useRef({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const STICKER_SIZE = 56; // px (wrapper + padding)
+
+  const constrainPosition = (pos: StickerPosition, rect: DOMRect): StickerPosition => {
+    const margin = 8;
+    const maxX = Math.max(margin, rect.width - STICKER_SIZE - margin);
+    const maxY = Math.max(margin, rect.height - STICKER_SIZE - margin);
+
+    let x = Math.min(Math.max(pos.x, margin), maxX);
+    let y = Math.min(Math.max(pos.y, margin), maxY);
+
+    // Keep stickers away from the "import Smrithi from..." textbox area at the top.
+    const textboxMaxY = Math.min(130, rect.height * 0.28);
+    if (y < textboxMaxY) y = textboxMaxY + 10;
+
+    return { x, y };
+  };
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const applyConstraints = () => {
+      const rect = el.getBoundingClientRect();
+      setPositions((prev) => {
+        const next: Record<string, StickerPosition> = {};
+        for (const s of stickers) {
+          next[s.id] = constrainPosition(prev[s.id] ?? s.initialPosition, rect);
+        }
+        return next;
+      });
+    };
+
+    applyConstraints();
+
+    const ro = new ResizeObserver(applyConstraints);
+    ro.observe(el);
+
+    window.addEventListener('resize', applyConstraints);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', applyConstraints);
+    };
+  }, []);
+
   const handleResetPosition = (stickerId: string) => {
     const sticker = stickers.find(s => s.id === stickerId);
+    const rect = containerRef.current?.getBoundingClientRect();
     if (sticker) {
       setPositions(prev => ({
         ...prev,
-        [stickerId]: sticker.initialPosition
+        [stickerId]: rect ? constrainPosition(sticker.initialPosition, rect) : sticker.initialPosition
       }));
     }
   };
@@ -87,12 +132,16 @@ const DraggableAccessories = () => {
       const containerRect = containerRef.current?.getBoundingClientRect();
       if (!containerRect) return;
       
+      const nextPos = {
+        x: moveX - containerRect.left - dragOffset.current.x,
+        y: moveY - containerRect.top - dragOffset.current.y,
+      };
+
+      const constrained = constrainPosition(nextPos, containerRect);
+
       setPositions(prev => ({
         ...prev,
-        [stickerId]: {
-          x: moveX - containerRect.left - dragOffset.current.x,
-          y: moveY - containerRect.top - dragOffset.current.y,
-        }
+        [stickerId]: constrained
       }));
     };
 
