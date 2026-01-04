@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/hooks/use-toast';
+import { useMouseParallax } from '@/hooks/useScrollAnimation';
 
 const socialLinks = [
   { icon: Github, href: 'https://github.com', label: 'GitHub' },
@@ -15,6 +16,7 @@ const Contact = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const mouseParallax = useMouseParallax(0.008);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -53,11 +55,21 @@ const Contact = () => {
     <section
       id="contact"
       ref={sectionRef}
-      className="relative py-24 md:py-32"
+      className="relative py-24 md:py-32 overflow-hidden"
     >
-      <div className="container mx-auto px-6">
+      {/* Background decorative elements */}
+      <div 
+        className="absolute left-1/3 top-0 h-[400px] w-[400px] rounded-full bg-primary/5 blur-[120px] pointer-events-none"
+        style={{ transform: `translate(${mouseParallax.x * 3}px, ${mouseParallax.y * 3}px)` }}
+      />
+      <div 
+        className="absolute right-0 bottom-1/4 h-[300px] w-[300px] rounded-full bg-lavender/5 blur-[100px] pointer-events-none"
+        style={{ transform: `translate(${mouseParallax.x * -2}px, ${mouseParallax.y * -2}px)` }}
+      />
+
+      <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
-        <div className={`mb-16 text-center transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        <div className={`mb-16 text-center transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <p className="mb-2 font-mono text-sm text-primary">{'// contact'}</p>
           <h2 className="text-3xl font-bold text-foreground md:text-4xl">
             Get In Touch<span className="text-primary">.</span>
@@ -70,7 +82,7 @@ const Contact = () => {
         <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-2">
           {/* Contact Info */}
           <div 
-            className={`transition-all duration-700 delay-200 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}
+            className={`transition-all duration-1000 delay-200 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-20 opacity-0'}`}
           >
             <div className="mb-8">
               <h3 className="mb-6 text-xl font-semibold text-foreground">
@@ -80,21 +92,21 @@ const Contact = () => {
               <div className="space-y-4">
                 <a
                   href="mailto:hello@smrithi.dev"
-                  className="group flex items-center gap-4 rounded-lg border border-border bg-card/50 p-4 transition-all duration-300 hover:border-primary/50 hover:bg-card"
+                  className="group flex items-center gap-4 glass-panel rounded-xl p-4 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/10"
                 >
-                  <div className="rounded-lg bg-primary/10 p-3">
+                  <div className="rounded-lg glass-card-strong p-3 group-hover:shadow-lg group-hover:shadow-primary/20 transition-all">
                     <Mail className="h-5 w-5 text-primary" />
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Email</p>
-                    <p className="font-medium text-foreground group-hover:text-primary">
+                    <p className="font-medium text-foreground group-hover:text-primary transition-colors">
                       hello@smrithi.dev
                     </p>
                   </div>
                 </a>
 
-                <div className="flex items-center gap-4 rounded-lg border border-border bg-card/50 p-4">
-                  <div className="rounded-lg bg-primary/10 p-3">
+                <div className="flex items-center gap-4 glass-panel rounded-xl p-4">
+                  <div className="rounded-lg glass-card-strong p-3">
                     <MapPin className="h-5 w-5 text-primary" />
                   </div>
                   <div>
@@ -105,7 +117,7 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Social Links */}
+            {/* Social Links with glass effect */}
             <div>
               <p className="mb-4 text-sm text-muted-foreground">Find me on</p>
               <div className="flex gap-3">
@@ -115,7 +127,7 @@ const Contact = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group rounded-lg border border-border bg-card/50 p-3 transition-all duration-300 hover:border-primary hover:bg-primary/10"
+                    className="group glass-card-strong rounded-xl p-3 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-primary/20"
                     aria-label={social.label}
                   >
                     <social.icon className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-primary" />
@@ -124,8 +136,11 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Code decoration */}
-            <div className="mt-8 hidden rounded-lg border border-border bg-card/30 p-4 font-mono text-sm lg:block">
+            {/* Code decoration with glass effect */}
+            <div 
+              className="mt-8 hidden glass-panel rounded-xl p-4 font-mono text-sm lg:block"
+              style={{ transform: `translate(${mouseParallax.x * 0.5}px, ${mouseParallax.y * 0.5}px)` }}
+            >
               <p className="text-muted-foreground">
                 <span className="text-pink-soft">const</span>{' '}
                 <span className="text-cyan-code">status</span> ={' '}
@@ -134,11 +149,11 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Contact Form */}
+          {/* Contact Form with glass effect */}
           <div 
-            className={`transition-all duration-700 delay-300 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}
+            className={`transition-all duration-1000 delay-300 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-20 opacity-0'}`}
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="glass-panel rounded-2xl p-6 space-y-6">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="name" className="mb-2 block text-sm text-muted-foreground">
@@ -149,7 +164,7 @@ const Contact = () => {
                     name="name"
                     placeholder="Your name"
                     required
-                    className="border-border bg-card/50 focus:border-primary"
+                    className="glass-card border-border/30 bg-transparent focus:border-primary focus:ring-1 focus:ring-primary/50"
                   />
                 </div>
                 <div>
@@ -162,7 +177,7 @@ const Contact = () => {
                     type="email"
                     placeholder="your@email.com"
                     required
-                    className="border-border bg-card/50 focus:border-primary"
+                    className="glass-card border-border/30 bg-transparent focus:border-primary focus:ring-1 focus:ring-primary/50"
                   />
                 </div>
               </div>
@@ -176,7 +191,7 @@ const Contact = () => {
                   name="subject"
                   placeholder="What's this about?"
                   required
-                  className="border-border bg-card/50 focus:border-primary"
+                  className="glass-card border-border/30 bg-transparent focus:border-primary focus:ring-1 focus:ring-primary/50"
                 />
               </div>
 
@@ -190,7 +205,7 @@ const Contact = () => {
                   placeholder="Tell me about your project..."
                   rows={5}
                   required
-                  className="resize-none border-border bg-card/50 focus:border-primary"
+                  className="resize-none glass-card border-border/30 bg-transparent focus:border-primary focus:ring-1 focus:ring-primary/50"
                 />
               </div>
 
@@ -198,14 +213,14 @@ const Contact = () => {
                 type="submit"
                 size="lg"
                 disabled={isSubmitting}
-                className="group w-full bg-primary font-mono text-primary-foreground transition-all hover:shadow-lg hover:shadow-primary/25"
+                className="group w-full bg-primary font-mono text-primary-foreground transition-all duration-300 hover:shadow-xl hover:shadow-primary/30 hover:scale-[1.02]"
               >
                 {isSubmitting ? (
                   'Sending...'
                 ) : (
                   <>
                     send_message()
-                    <Send className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <Send className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-0.5" />
                   </>
                 )}
               </Button>
