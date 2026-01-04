@@ -176,7 +176,7 @@ const Hero = () => {
       {/* Scroll indicator with glass effect */}
       <button
         onClick={() => scrollToSection('#about')}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 glass-card rounded-full px-4 py-3 transition-all hover:scale-110 hover:shadow-lg hover:shadow-primary/20 group"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 glass-card rounded-full px-4 py-3 transition-all hover:scale-110 hover:shadow-lg hover:shadow-primary/20 group cursor-default"
         aria-label="Scroll down"
       >
         <div className="flex flex-col items-center gap-1">

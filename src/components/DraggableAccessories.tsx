@@ -32,6 +32,7 @@ const DraggableAccessories = () => {
     stickers.reduce((acc, s) => ({ ...acc, [s.id]: s.initialPosition }), {})
   );
   const [dragging, setDragging] = useState<string | null>(null);
+  const [movedStickers, setMovedStickers] = useState<Set<string>>(new Set());
   const dragOffset = useRef({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -69,6 +70,7 @@ const DraggableAccessories = () => {
 
     const handleEnd = () => {
       setDragging(null);
+      setMovedStickers(prev => new Set(prev).add(stickerId));
       document.removeEventListener('mousemove', handleMove);
       document.removeEventListener('mouseup', handleEnd);
       document.removeEventListener('touchmove', handleMove);
@@ -81,11 +83,34 @@ const DraggableAccessories = () => {
     document.addEventListener('touchend', handleEnd);
   };
 
+  const handleClick = (stickerId: string) => {
+    const sticker = stickers.find(s => s.id === stickerId);
+    if (sticker && movedStickers.has(stickerId)) {
+      setPositions(prev => ({
+        ...prev,
+        [stickerId]: sticker.initialPosition
+      }));
+      setMovedStickers(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(stickerId);
+        return newSet;
+      });
+    }
+  };
+
   return (
     <div ref={containerRef} className="absolute inset-0 pointer-events-none overflow-visible">
+      {/* Drag Me hint */}
+      <div className="absolute -left-16 top-1/2 -translate-y-1/2 pointer-events-none">
+        <div className="glass-card px-3 py-1.5 rounded-full text-xs font-mono text-primary animate-pulse whitespace-nowrap">
+          ✨ Drag Me!
+        </div>
+      </div>
+      
       {stickers.map((sticker) => {
         const pos = positions[sticker.id];
         const stickerData = stickers.find(s => s.id === sticker.id);
+        const isMoved = movedStickers.has(sticker.id);
         
         return (
           <div
@@ -97,14 +122,20 @@ const DraggableAccessories = () => {
               left: pos.x,
               top: pos.y,
               transform: `rotate(${stickerData?.rotation || 0}deg)`,
-              filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))',
+              filter: 'drop-shadow(0 3px 6px rgba(0,0,0,0.24))',
             }}
             onMouseDown={(e) => handleDragStart(e, sticker.id)}
             onTouchStart={(e) => handleDragStart(e, sticker.id)}
-            title={`Drag me! - ${sticker.label}`}
+            onClick={() => handleClick(sticker.id)}
+            title={isMoved ? 'Click to reset position' : `Drag me! - ${sticker.label}`}
           >
-            <div className="p-2 rounded-xl bg-card/90 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-colors">
+            <div className="p-2 rounded-xl bg-card/90 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-colors relative">
               {sticker.icon}
+              {isMoved && (
+                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-mono text-muted-foreground whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+                  click to reset
+                </div>
+              )}
             </div>
           </div>
         );
