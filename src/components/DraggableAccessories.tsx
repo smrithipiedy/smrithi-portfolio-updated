@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Sparkles, Star, Heart, Zap, Coffee, Code2, Rocket, Terminal, Braces } from 'lucide-react';
+import { Sparkles, Star, Heart, Zap, Coffee, Code2, Rocket, Terminal, Braces, Gamepad2, BookOpen, Camera } from 'lucide-react';
 
 interface Sticker {
   id: string;
@@ -20,6 +20,9 @@ const stickers: Sticker[] = [
   { id: 'rocket', icon: <Rocket className="w-5 h-5" />, color: 'text-orange-400', label: 'Rocket', initialPosition: { x: 100, y: -45 }, rotation: -25 },
   { id: 'terminal', icon: <Terminal className="w-5 h-5" />, color: 'text-lavender', label: 'Terminal', initialPosition: { x: 250, y: -40 }, rotation: 15 },
   { id: 'braces', icon: <Braces className="w-6 h-6" />, color: 'text-blue-400', label: 'Braces', initialPosition: { x: 180, y: 390 }, rotation: -10 },
+  { id: 'gaming', icon: <Gamepad2 className="w-6 h-6" />, color: 'text-purple-400', label: 'Gaming', initialPosition: { x: -55, y: 200 }, rotation: 18 },
+  { id: 'books', icon: <BookOpen className="w-5 h-5" />, color: 'text-emerald-400', label: 'Reading', initialPosition: { x: 385, y: 320 }, rotation: -15 },
+  { id: 'photography', icon: <Camera className="w-5 h-5" />, color: 'text-rose-400', label: 'Photography', initialPosition: { x: 30, y: 395 }, rotation: 12 },
 ];
 
 interface StickerPosition {
@@ -35,6 +38,16 @@ const DraggableAccessories = () => {
   const dragOffset = useRef({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const handleResetPosition = (stickerId: string) => {
+    const sticker = stickers.find(s => s.id === stickerId);
+    if (sticker) {
+      setPositions(prev => ({
+        ...prev,
+        [stickerId]: sticker.initialPosition
+      }));
+    }
+  };
+
   const handleDragStart = (e: React.MouseEvent | React.TouchEvent, stickerId: string) => {
     e.preventDefault();
     const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
@@ -44,6 +57,10 @@ const DraggableAccessories = () => {
     if (!containerRect) return;
     
     const currentPos = positions[stickerId];
+    const startX = clientX;
+    const startY = clientY;
+    let hasMoved = false;
+    
     dragOffset.current = {
       x: clientX - containerRect.left - currentPos.x,
       y: clientY - containerRect.top - currentPos.y,
@@ -54,6 +71,11 @@ const DraggableAccessories = () => {
     const handleMove = (moveEvent: MouseEvent | TouchEvent) => {
       const moveX = 'touches' in moveEvent ? moveEvent.touches[0].clientX : moveEvent.clientX;
       const moveY = 'touches' in moveEvent ? moveEvent.touches[0].clientY : moveEvent.clientY;
+      
+      // Check if actually moved (more than 5px)
+      if (Math.abs(moveX - startX) > 5 || Math.abs(moveY - startY) > 5) {
+        hasMoved = true;
+      }
       
       const containerRect = containerRef.current?.getBoundingClientRect();
       if (!containerRect) return;
@@ -69,6 +91,10 @@ const DraggableAccessories = () => {
 
     const handleEnd = () => {
       setDragging(null);
+      // If clicked without dragging, reset to initial position
+      if (!hasMoved) {
+        handleResetPosition(stickerId);
+      }
       document.removeEventListener('mousemove', handleMove);
       document.removeEventListener('mouseup', handleEnd);
       document.removeEventListener('touchmove', handleMove);
@@ -83,16 +109,22 @@ const DraggableAccessories = () => {
 
   return (
     <div ref={containerRef} className="absolute inset-0 pointer-events-none overflow-visible">
+      {/* Hint text */}
+      <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-xs text-muted-foreground/70 whitespace-nowrap pointer-events-none select-none animate-pulse">
+        ✨ Drag the stickers • Click to reset
+      </div>
+      
       {stickers.map((sticker) => {
         const pos = positions[sticker.id];
         const stickerData = stickers.find(s => s.id === sticker.id);
+        const isAtInitial = pos.x === stickerData?.initialPosition.x && pos.y === stickerData?.initialPosition.y;
         
         return (
           <div
             key={sticker.id}
             className={`absolute pointer-events-auto cursor-grab active:cursor-grabbing transition-all duration-150 ${sticker.color} ${
               dragging === sticker.id ? 'scale-125 z-50' : 'hover:scale-110 z-10'
-            }`}
+            } ${isAtInitial ? 'animate-[wiggle_2s_ease-in-out_infinite]' : ''}`}
             style={{
               left: pos.x,
               top: pos.y,
@@ -101,7 +133,7 @@ const DraggableAccessories = () => {
             }}
             onMouseDown={(e) => handleDragStart(e, sticker.id)}
             onTouchStart={(e) => handleDragStart(e, sticker.id)}
-            title={`Drag me! - ${sticker.label}`}
+            title={`Drag me! Click to reset • ${sticker.label}`}
           >
             <div className="p-2 rounded-xl bg-card/90 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-colors">
               {sticker.icon}
