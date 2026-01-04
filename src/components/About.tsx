@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Code2, Palette, Coffee, Sparkles } from 'lucide-react';
-import smrithiPhoto from '@/assets/smrithi-photo.jpg';
+import smrithiPhoto from '@/assets/smrithi-photo.png';
 
 const stats = [
   { icon: Code2, label: 'Years Coding', value: '3+' },
@@ -52,26 +52,28 @@ const About = () => {
           >
             <div className="relative aspect-square max-w-md mx-auto lg:mx-0">
               {/* Terminal-style photo frame */}
-              <div className="absolute inset-0 rounded-xl border border-border bg-card/80 backdrop-blur-sm overflow-hidden">
+              <div className="absolute inset-0 rounded-xl border border-border bg-card/80 backdrop-blur-sm overflow-visible">
                 {/* Window controls */}
-                <div className="flex items-center gap-2 border-b border-border px-4 py-3">
+                <div className="flex items-center gap-2 border-b border-border px-4 py-3 relative z-0">
                   <div className="h-3 w-3 rounded-full bg-destructive/60" />
                   <div className="h-3 w-3 rounded-full bg-yellow-500/60" />
                   <div className="h-3 w-3 rounded-full bg-green-500/60" />
-                  <span className="ml-4 font-mono text-xs text-muted-foreground">smrithi.jpg</span>
+                  <span className="ml-4 font-mono text-xs text-muted-foreground">smrithi.png</span>
                 </div>
                 
-                {/* Photo */}
-                <div className="relative h-[calc(100%-44px)] w-full">
-                  <img 
-                    src={smrithiPhoto} 
-                    alt="Smrithi" 
-                    className="h-full w-full object-cover object-top" 
-                  />
+                {/* Photo container with gradient background */}
+                <div className="relative h-[calc(100%-44px)] w-full bg-gradient-to-br from-primary/10 via-background to-accent/10">
                   {/* Subtle scan line effect */}
                   <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,hsl(var(--foreground))_2px,hsl(var(--foreground))_4px)]" />
                 </div>
               </div>
+              
+              {/* Photo positioned to overlap the terminal header */}
+              <img 
+                src={smrithiPhoto} 
+                alt="Smrithi" 
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[110%] w-auto object-contain object-bottom z-10" 
+              />
 
               {/* Decorative elements */}
               <div className="absolute -right-4 -top-4 h-24 w-24 rounded-lg border border-primary/30 opacity-50" />
