@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { Sparkles, Star, Heart, Zap, Coffee, Code2, Rocket, Gamepad2, BookOpen, Camera } from 'lucide-react';
 
 interface Sticker {
@@ -10,24 +10,40 @@ interface Sticker {
   rotation: number;
 }
 
-// Positions scattered around the person (avoiding center where person is)
+// Evenly spaced positions around the image (avoiding center and import textbox area)
+// Positions are relative to the container, image is roughly centered at 150, 200
 const stickers: Sticker[] = [
-  { id: 'sparkles', icon: <Sparkles className="w-6 h-6" />, color: 'text-yellow-400', label: 'Sparkles', initialPosition: { x: -45, y: 80 }, rotation: -15 },
-  { id: 'star', icon: <Star className="w-7 h-7" />, color: 'text-primary', label: 'Star', initialPosition: { x: 340, y: 70 }, rotation: 12 },
-  { id: 'heart', icon: <Heart className="w-5 h-5" />, color: 'text-pink-soft', label: 'Heart', initialPosition: { x: -35, y: 200 }, rotation: -8 },
-  { id: 'gaming', icon: <Gamepad2 className="w-6 h-6" />, color: 'text-purple-400', label: 'Gaming', initialPosition: { x: 360, y: 300 }, rotation: 18 },
-  { id: 'zap', icon: <Zap className="w-6 h-6" />, color: 'text-cyan-code', label: 'Zap', initialPosition: { x: 380, y: 160 }, rotation: 20 },
-  { id: 'coffee', icon: <Coffee className="w-5 h-5" />, color: 'text-amber-500', label: 'Coffee', initialPosition: { x: -50, y: 320 }, rotation: -12 },
-  { id: 'code', icon: <Code2 className="w-6 h-6" />, color: 'text-green-400', label: 'Code', initialPosition: { x: 100, y: 380 }, rotation: 8 },
-  { id: 'books', icon: <BookOpen className="w-5 h-5" />, color: 'text-emerald-400', label: 'Reading', initialPosition: { x: 260, y: 370 }, rotation: -15 },
-  { id: 'rocket', icon: <Rocket className="w-5 h-5" />, color: 'text-orange-400', label: 'Rocket', initialPosition: { x: 350, y: 240 }, rotation: -25 },
-  { id: 'photography', icon: <Camera className="w-5 h-5" />, color: 'text-rose-400', label: 'Photography', initialPosition: { x: -40, y: 260 }, rotation: 12 },
+  // Top row - evenly spaced
+  { id: 'sparkles', icon: <Sparkles className="w-6 h-6" />, color: 'text-yellow-400', label: 'Sparkles', initialPosition: { x: 20, y: 30 }, rotation: -15 },
+  { id: 'star', icon: <Star className="w-7 h-7" />, color: 'text-primary', label: 'Star', initialPosition: { x: 280, y: 25 }, rotation: 12 },
+  
+  // Left side - evenly spaced vertically
+  { id: 'heart', icon: <Heart className="w-5 h-5" />, color: 'text-pink-soft', label: 'Heart', initialPosition: { x: -25, y: 120 }, rotation: -8 },
+  { id: 'coffee', icon: <Coffee className="w-5 h-5" />, color: 'text-amber-500', label: 'Coffee', initialPosition: { x: -20, y: 220 }, rotation: -12 },
+  
+  // Right side - evenly spaced vertically (avoiding bottom-right import textbox)
+  { id: 'zap', icon: <Zap className="w-6 h-6" />, color: 'text-cyan-code', label: 'Zap', initialPosition: { x: 310, y: 100 }, rotation: 20 },
+  { id: 'gaming', icon: <Gamepad2 className="w-6 h-6" />, color: 'text-purple-400', label: 'Gaming', initialPosition: { x: 315, y: 200 }, rotation: 18 },
+  
+  // Bottom row - evenly spaced (avoiding import textbox on bottom right)
+  { id: 'code', icon: <Code2 className="w-6 h-6" />, color: 'text-green-400', label: 'Code', initialPosition: { x: 30, y: 340 }, rotation: 8 },
+  { id: 'books', icon: <BookOpen className="w-5 h-5" />, color: 'text-emerald-400', label: 'Reading', initialPosition: { x: 130, y: 355 }, rotation: -15 },
+  { id: 'rocket', icon: <Rocket className="w-5 h-5" />, color: 'text-orange-400', label: 'Rocket', initialPosition: { x: -15, y: 320 }, rotation: -25 },
+  { id: 'photography', icon: <Camera className="w-5 h-5" />, color: 'text-rose-400', label: 'Photography', initialPosition: { x: 300, y: 30 }, rotation: 12 },
 ];
 
 interface StickerPosition {
   x: number;
   y: number;
 }
+
+// Boundary constraints - medium radius around the image
+const BOUNDARY = {
+  minX: -60,
+  maxX: 360,
+  minY: 0,
+  maxY: 380,
+};
 
 const DraggableAccessories = () => {
   const [positions, setPositions] = useState<Record<string, StickerPosition>>(
@@ -36,6 +52,13 @@ const DraggableAccessories = () => {
   const [dragging, setDragging] = useState<string | null>(null);
   const dragOffset = useRef({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const clampPosition = useCallback((x: number, y: number): StickerPosition => {
+    return {
+      x: Math.max(BOUNDARY.minX, Math.min(BOUNDARY.maxX, x)),
+      y: Math.max(BOUNDARY.minY, Math.min(BOUNDARY.maxY, y)),
+    };
+  }, []);
 
   const handleResetPosition = (stickerId: string) => {
     const sticker = stickers.find(s => s.id === stickerId);
@@ -79,12 +102,15 @@ const DraggableAccessories = () => {
       const containerRect = containerRef.current?.getBoundingClientRect();
       if (!containerRect) return;
       
+      const newX = moveX - containerRect.left - dragOffset.current.x;
+      const newY = moveY - containerRect.top - dragOffset.current.y;
+      
+      // Apply boundary constraints
+      const clampedPos = clampPosition(newX, newY);
+      
       setPositions(prev => ({
         ...prev,
-        [stickerId]: {
-          x: moveX - containerRect.left - dragOffset.current.x,
-          y: moveY - containerRect.top - dragOffset.current.y,
-        }
+        [stickerId]: clampedPos
       }));
     };
 
@@ -107,9 +133,9 @@ const DraggableAccessories = () => {
   };
 
   return (
-    <div ref={containerRef} className="absolute inset-0 pointer-events-none overflow-visible">
-      {/* Hint text - positioned at top */}
-      <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-xs text-muted-foreground/60 whitespace-nowrap pointer-events-none select-none font-mono">
+    <div ref={containerRef} className="absolute inset-0 pointer-events-none overflow-hidden">
+      {/* Hint text - positioned at top, outside the main container */}
+      <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-xs text-muted-foreground/60 whitespace-nowrap pointer-events-none select-none font-mono z-40">
         ✨ drag the stickers • click to reset
       </div>
       
