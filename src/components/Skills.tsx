@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { useMouseParallax } from '@/hooks/useScrollAnimation';
 
 interface Skill {
   name: string;
@@ -31,7 +30,6 @@ const Skills = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [activeCategory, setActiveCategory] = useState('Frontend');
-  const mouseParallax = useMouseParallax(0.008);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -56,80 +54,73 @@ const Skills = () => {
     <section
       id="skills"
       ref={sectionRef}
-      className="relative py-24 md:py-32 overflow-hidden"
+      className="relative py-24 md:py-32"
     >
-      {/* Background decorative elements */}
-      <div 
-        className="absolute right-0 top-1/3 h-[350px] w-[350px] rounded-full bg-pink-soft/5 blur-[100px] pointer-events-none"
-        style={{ transform: `translate(${mouseParallax.x * -3}px, ${mouseParallax.y * -3}px)` }}
-      />
-      <div 
-        className="absolute -left-20 bottom-1/4 h-[250px] w-[250px] rounded-full bg-cyan-code/5 blur-[80px] pointer-events-none"
-        style={{ transform: `translate(${mouseParallax.x * 2}px, ${mouseParallax.y * 2}px)` }}
-      />
-
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6">
         {/* Section Header */}
-        <div className={`mb-16 text-center transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        <div className={`mb-16 text-center transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <p className="mb-2 font-mono text-sm text-primary">{'// skills'}</p>
           <h2 className="text-3xl font-bold text-foreground md:text-4xl">
             Tech Stack<span className="text-primary">.</span>
           </h2>
         </div>
 
-        {/* Category Tabs with glass effect */}
+        {/* Category Tabs */}
         <div 
-          className={`mb-12 flex justify-center transition-all duration-1000 delay-200 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+          className={`mb-12 flex justify-center gap-4 transition-all duration-700 delay-200 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
         >
-          <div className="glass-card-strong rounded-full p-1.5 flex gap-1">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`relative px-6 py-2.5 font-mono text-sm rounded-full transition-all duration-300 ${
-                  activeCategory === category
-                    ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-card/50'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              className={`relative px-6 py-2 font-mono text-sm transition-all duration-300 ${
+                activeCategory === category
+                  ? 'text-primary'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {category}
+              {activeCategory === category && (
+                <span className="absolute bottom-0 left-0 h-0.5 w-full bg-primary" />
+              )}
+            </button>
+          ))}
         </div>
 
-        {/* Skills Grid with glass panels */}
-        <div className="mx-auto max-w-3xl space-y-4">
+        {/* Skills Grid */}
+        <div className="mx-auto max-w-3xl space-y-6">
           {filteredSkills.map((skill, index) => (
             <div
               key={skill.name}
-              className={`group glass-panel rounded-xl p-5 transition-all duration-700 hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/10 ${
-                isVisible ? 'translate-x-0 opacity-100' : '-translate-x-20 opacity-0'
+              className={`group transition-all duration-500 ${
+                isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'
               }`}
               style={{ transitionDelay: `${300 + index * 100}ms` }}
             >
-              <div className="mb-3 flex items-center justify-between">
-                <span className="font-medium text-foreground group-hover:text-primary transition-colors">{skill.name}</span>
-                <span className="font-mono text-sm text-primary glass-card px-3 py-1 rounded-full">{skill.level}%</span>
+              <div className="mb-2 flex items-center justify-between">
+                <span className="font-medium text-foreground">{skill.name}</span>
+                <span className="font-mono text-sm text-primary">{skill.level}%</span>
               </div>
               
-              {/* Progress Bar Container with glass effect */}
-              <div className="relative h-3 overflow-hidden rounded-full bg-secondary/50 backdrop-blur-sm">
-                {/* Progress Fill with gradient */}
+              {/* Progress Bar Container */}
+              <div className="relative h-3 overflow-hidden rounded-full bg-secondary">
+                {/* Progress Fill */}
                 <div
-                  className={`absolute left-0 top-0 h-full rounded-full transition-all duration-1000 ease-out ${
+                  className={`absolute left-0 top-0 h-full rounded-full bg-gradient-to-r from-primary to-pink-soft transition-all duration-1000 ease-out ${
                     isVisible ? '' : 'w-0'
                   }`}
                   style={{
                     width: isVisible ? `${skill.level}%` : '0%',
                     transitionDelay: `${400 + index * 100}ms`,
-                    background: 'linear-gradient(90deg, hsl(var(--primary)), hsl(var(--lavender)), hsl(var(--pink-soft)))',
                   }}
                 >
-                  {/* Animated shimmer effect */}
-                  <div className="absolute inset-0 shimmer" />
-                  {/* Glow effect */}
-                  <div className="absolute right-0 top-1/2 -translate-y-1/2 h-6 w-6 rounded-full bg-primary/50 blur-md" />
+                  {/* Shimmer effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100" 
+                    style={{
+                      animation: 'shimmer 2s linear infinite',
+                      backgroundSize: '200% 100%',
+                    }}
+                  />
                 </div>
 
                 {/* Level markers */}
@@ -137,7 +128,7 @@ const Skills = () => {
                   {[25, 50, 75].map((marker) => (
                     <div
                       key={marker}
-                      className="h-full w-px bg-border/30"
+                      className="h-full w-px bg-border"
                       style={{ left: `${marker}%`, position: 'absolute' }}
                     />
                   ))}
@@ -147,17 +138,16 @@ const Skills = () => {
           ))}
         </div>
 
-        {/* All Skills Summary with glass effect */}
+        {/* All Skills Summary */}
         <div 
-          className={`mt-16 text-center transition-all duration-1000 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+          className={`mt-16 text-center transition-all duration-700 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
         >
           <p className="mb-4 text-sm text-muted-foreground">Also familiar with:</p>
           <div className="flex flex-wrap justify-center gap-2">
-            {['GraphQL', 'Docker', 'AWS', 'MongoDB', 'Redux', 'Jest', 'Sass', 'Vue.js'].map((tech, index) => (
+            {['GraphQL', 'Docker', 'AWS', 'MongoDB', 'Redux', 'Jest', 'Sass', 'Vue.js'].map((tech) => (
               <span
                 key={tech}
-                className="glass-card rounded-full px-4 py-2 font-mono text-xs text-muted-foreground transition-all duration-300 hover:text-primary hover:scale-110 hover:shadow-lg hover:shadow-primary/10 cursor-default"
-                style={{ animationDelay: `${index * 50}ms` }}
+                className="rounded-full border border-border bg-card/50 px-4 py-1.5 font-mono text-xs text-muted-foreground transition-all duration-300 hover:border-primary/50 hover:text-foreground"
               >
                 {tech}
               </span>

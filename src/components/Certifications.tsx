@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { Award, CheckCircle, Lock, Sparkles } from 'lucide-react';
-import { useMouseParallax } from '@/hooks/useScrollAnimation';
 
 interface Certification {
   id: number;
@@ -49,7 +48,6 @@ const Certifications = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredCert, setHoveredCert] = useState<number | null>(null);
-  const mouseParallax = useMouseParallax(0.008);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -71,21 +69,11 @@ const Certifications = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 md:py-32 overflow-hidden"
+      className="relative py-24 md:py-32"
     >
-      {/* Background decorative elements */}
-      <div 
-        className="absolute left-1/4 top-1/4 h-[350px] w-[350px] rounded-full bg-lavender/5 blur-[100px] pointer-events-none"
-        style={{ transform: `translate(${mouseParallax.x * 3}px, ${mouseParallax.y * 3}px)` }}
-      />
-      <div 
-        className="absolute right-0 bottom-1/4 h-[250px] w-[250px] rounded-full bg-pink-soft/5 blur-[80px] pointer-events-none"
-        style={{ transform: `translate(${mouseParallax.x * -2}px, ${mouseParallax.y * -2}px)` }}
-      />
-
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6">
         {/* Section Header */}
-        <div className={`mb-16 text-center transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        <div className={`mb-16 text-center transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <p className="mb-2 font-mono text-sm text-primary">{'// certifications'}</p>
           <h2 className="text-3xl font-bold text-foreground md:text-4xl">
             Credentials<span className="text-primary">.</span>
@@ -97,12 +85,12 @@ const Certifications = () => {
           {certifications.map((cert, index) => (
             <div
               key={cert.id}
-              className={`group relative overflow-hidden rounded-xl transition-all duration-700 ${
+              className={`group relative overflow-hidden rounded-xl border transition-all duration-500 ${
                 cert.earned
-                  ? 'glass-panel hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/15'
-                  : 'border-dashed border border-border/50 bg-card/30'
-              } ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}
-              style={{ transitionDelay: `${index * 150}ms` }}
+                  ? 'border-border bg-card/80 hover:border-primary/50 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10'
+                  : 'border-dashed border-border/50 bg-card/30'
+              } ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+              style={{ transitionDelay: `${index * 100}ms` }}
               onMouseEnter={() => setHoveredCert(cert.id)}
               onMouseLeave={() => setHoveredCert(null)}
             >
