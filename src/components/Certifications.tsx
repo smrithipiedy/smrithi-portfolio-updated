@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Award, CheckCircle, Lock } from 'lucide-react';
+import { Award, CheckCircle, Lock, Sparkles } from 'lucide-react';
 
 interface Certification {
   id: number;
@@ -47,6 +47,7 @@ const certifications: Certification[] = [
 const Certifications = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [hoveredCert, setHoveredCert] = useState<number | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -86,31 +87,67 @@ const Certifications = () => {
               key={cert.id}
               className={`group relative overflow-hidden rounded-xl border transition-all duration-500 ${
                 cert.earned
-                  ? 'border-border bg-card/80 hover:border-primary/50'
+                  ? 'border-border bg-card/80 hover:border-primary/50 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10'
                   : 'border-dashed border-border/50 bg-card/30'
               } ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
               style={{ transitionDelay: `${index * 100}ms` }}
+              onMouseEnter={() => setHoveredCert(cert.id)}
+              onMouseLeave={() => setHoveredCert(null)}
             >
-              <div className="p-6">
+              {/* Animated gradient border for earned certs */}
+              {cert.earned && (
+                <div className={`absolute inset-0 rounded-xl bg-gradient-to-r from-primary via-lavender to-pink-soft transition-opacity duration-500 ${
+                  hoveredCert === cert.id ? 'opacity-100' : 'opacity-0'
+                }`} style={{ padding: '1px' }}>
+                  <div className="h-full w-full rounded-xl bg-card" />
+                </div>
+              )}
+              
+              {/* Card content */}
+              <div className="relative z-10 p-6">
                 <div className="mb-4 flex items-start justify-between">
-                  <div className={`rounded-lg p-2 ${cert.earned ? 'bg-primary/10' : 'bg-secondary'}`}>
+                  <div className={`rounded-lg p-2 transition-all duration-300 ${
+                    cert.earned 
+                      ? hoveredCert === cert.id 
+                        ? 'bg-primary/20 scale-110 rotate-6' 
+                        : 'bg-primary/10'
+                      : 'bg-secondary'
+                  }`}>
                     {cert.earned ? (
-                      <Award className="h-6 w-6 text-primary" />
+                      <Award className={`h-6 w-6 transition-colors duration-300 ${
+                        hoveredCert === cert.id ? 'text-primary' : 'text-primary'
+                      }`} />
                     ) : (
                       <Lock className="h-6 w-6 text-muted-foreground" />
                     )}
                   </div>
                   {cert.earned && (
-                    <CheckCircle className="h-5 w-5 text-green-500" />
+                    <div className="relative">
+                      <CheckCircle className={`h-5 w-5 text-green-500 transition-transform duration-300 ${
+                        hoveredCert === cert.id ? 'scale-125' : ''
+                      }`} />
+                      {/* Sparkle effect on hover */}
+                      <Sparkles className={`absolute -top-1 -right-1 h-3 w-3 text-yellow-400 transition-all duration-300 ${
+                        hoveredCert === cert.id ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
+                      }`} />
+                    </div>
                   )}
                 </div>
 
-                <h3 className={`mb-1 font-semibold ${cert.earned ? 'text-foreground' : 'text-muted-foreground'}`}>
+                <h3 className={`mb-1 font-semibold transition-colors duration-300 ${
+                  cert.earned 
+                    ? hoveredCert === cert.id ? 'text-primary' : 'text-foreground'
+                    : 'text-muted-foreground'
+                }`}>
                   {cert.title}
                 </h3>
                 <p className="mb-2 text-sm text-muted-foreground">{cert.issuer}</p>
                 <div className="flex items-center justify-between">
-                  <span className={`font-mono text-xs ${cert.earned ? 'text-primary' : 'text-muted-foreground'}`}>
+                  <span className={`font-mono text-xs transition-all duration-300 ${
+                    cert.earned 
+                      ? hoveredCert === cert.id ? 'text-primary scale-105' : 'text-primary'
+                      : 'text-muted-foreground'
+                  }`}>
                     {cert.date}
                   </span>
                   {cert.credentialUrl && cert.earned && (
@@ -118,7 +155,7 @@ const Certifications = () => {
                       href={cert.credentialUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs text-muted-foreground underline transition-colors hover:text-primary"
+                      className="text-xs text-muted-foreground underline transition-all duration-200 hover:text-primary hover:scale-105"
                     >
                       View credential
                     </a>
@@ -126,9 +163,23 @@ const Certifications = () => {
                 </div>
               </div>
 
-              {/* Earned glow effect */}
+              {/* Glow effects */}
               {cert.earned && (
-                <div className="absolute -right-10 -top-10 h-20 w-20 rounded-full bg-primary/10 opacity-0 blur-2xl transition-opacity group-hover:opacity-100" />
+                <>
+                  <div className={`absolute -right-10 -top-10 h-20 w-20 rounded-full bg-primary/20 blur-2xl transition-all duration-500 ${
+                    hoveredCert === cert.id ? 'opacity-100 scale-150' : 'opacity-0 scale-100'
+                  }`} />
+                  <div className={`absolute -left-5 -bottom-5 h-16 w-16 rounded-full bg-lavender/20 blur-xl transition-all duration-700 ${
+                    hoveredCert === cert.id ? 'opacity-100 scale-150' : 'opacity-0 scale-100'
+                  }`} />
+                </>
+              )}
+              
+              {/* Progress bar for in-progress certs */}
+              {!cert.earned && (
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-secondary overflow-hidden">
+                  <div className="h-full w-1/3 bg-gradient-to-r from-primary/50 to-lavender/50 animate-pulse" />
+                </div>
               )}
             </div>
           ))}
