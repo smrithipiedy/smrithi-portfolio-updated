@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Code2, Palette, Coffee, Sparkles } from 'lucide-react';
+import smrithiPhoto from '@/assets/smrithi-photo.jpg';
 
 const stats = [
   { icon: Code2, label: 'Years Coding', value: '3+' },
@@ -60,19 +61,13 @@ const About = () => {
                   <span className="ml-4 font-mono text-xs text-muted-foreground">smrithi.jpg</span>
                 </div>
                 
-                {/* Photo placeholder */}
-                <div className="relative h-[calc(100%-44px)] w-full bg-gradient-to-br from-primary/20 via-background to-accent/20 flex items-center justify-center">
-                  {/* Replace this div with your actual image */}
-                  {/* <img src="/your-photo.jpg" alt="Smrithi" className="h-full w-full object-cover" /> */}
-                  
-                  {/* Placeholder content */}
-                  <div className="text-center">
-                    <div className="mx-auto mb-4 h-24 w-24 rounded-full border-2 border-dashed border-primary/50 flex items-center justify-center">
-                      <span className="font-mono text-4xl text-primary/70">S</span>
-                    </div>
-                    <p className="font-mono text-sm text-muted-foreground">your photo here</p>
-                  </div>
-                  
+                {/* Photo */}
+                <div className="relative h-[calc(100%-44px)] w-full">
+                  <img 
+                    src={smrithiPhoto} 
+                    alt="Smrithi" 
+                    className="h-full w-full object-cover object-top" 
+                  />
                   {/* Subtle scan line effect */}
                   <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,hsl(var(--foreground))_2px,hsl(var(--foreground))_4px)]" />
                 </div>
