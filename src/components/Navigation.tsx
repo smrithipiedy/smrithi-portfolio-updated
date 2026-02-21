@@ -35,10 +35,10 @@ const Navigation = () => {
     <nav
       className="fixed left-0 right-0 top-0 z-50 flex justify-center px-4 pt-4 transition-all duration-300"
     >
-      <div className={`flex w-full max-w-5xl items-center justify-between rounded-2xl border border-border/40 px-6 py-3 backdrop-blur-xl transition-all duration-300 ${
+      <div className={`flex w-full max-w-5xl items-center justify-between rounded-full border px-6 py-3 backdrop-blur-xl transition-all duration-300 ${
         scrolled
-          ? 'bg-background/60 shadow-lg shadow-primary/5'
-          : 'bg-background/40'
+          ? 'border-primary/30 bg-card/70 shadow-lg shadow-primary/10'
+          : 'border-border/60 bg-card/50'
       }`}>
         {/* Logo with retro style */}
         <a
