@@ -87,33 +87,35 @@ const Navigation = () => {
             <Menu className="h-6 w-6 text-foreground" />
           )}
         </button>
+      </div>
 
-        {/* Mobile Navigation */}
-        <div
-          className={`fixed inset-0 z-40 flex flex-col items-center justify-center bg-background transition-all duration-300 md:hidden ${
-            isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
-          }`}
-        >
-          <div className="flex flex-col items-center gap-8">
-            {navLinks.map((link, index) => (
-              <button
-                key={link.href}
-                onClick={() => handleNavClick(link.href)}
-                className="text-2xl font-medium text-foreground transition-all hover:text-primary"
-                style={{
-                  animation: isOpen
-                    ? `fade-in-up 0.3s ease forwards ${index * 0.1}s`
-                    : 'none',
-                  opacity: isOpen ? 0 : 1,
-                }}
-              >
-                {link.label}
-              </button>
-            ))}
+      {/* Mobile Navigation Overlay */}
+      <div
+        className={`fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+          isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
+        }`}
+        onClick={() => setIsOpen(false)}
+      />
+      <div
+        className={`fixed left-4 right-4 top-20 z-50 rounded-2xl border border-primary/30 bg-card/95 backdrop-blur-xl shadow-xl shadow-primary/10 transition-all duration-300 md:hidden ${
+          isOpen ? 'opacity-100 translate-y-0' : 'pointer-events-none opacity-0 -translate-y-4'
+        }`}
+      >
+        <div className="flex flex-col p-6 gap-2">
+          {navLinks.map((link) => (
+            <button
+              key={link.href}
+              onClick={() => handleNavClick(link.href)}
+              className="w-full rounded-xl px-4 py-3 text-left text-lg font-medium text-foreground transition-colors hover:bg-primary/10 hover:text-primary"
+            >
+              {link.label}
+            </button>
+          ))}
+          <div className="mt-2 border-t border-border/50 pt-4">
             <Button
               variant="outline"
               size="lg"
-              className="mt-4 border-primary/50 bg-primary/10 text-foreground hover:border-primary hover:bg-primary/20 hover:text-foreground"
+              className="w-full border-primary/50 bg-primary/10 text-foreground hover:border-primary hover:bg-primary/20 hover:text-foreground"
               onClick={() => handleNavClick('#contact')}
             >
               <span className="font-mono">say_hello()</span>
