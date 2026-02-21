@@ -51,42 +51,43 @@ const About = () => {
           <div 
             className={`relative transition-all delay-200 duration-700 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}
           >
-            <div className="relative aspect-square max-w-md mx-auto lg:mx-0 lg:ml-16">
-              {/* Glow effect behind photo */}
-              <div className="absolute inset-4 rounded-xl bg-gradient-to-br from-primary/40 via-lavender/30 to-pink-soft/40 blur-2xl opacity-60 animate-pulse-glow" />
-              
-              {/* Draggable stickers around terminal */}
-              <DraggableAccessories />
-              
-              {/* Terminal-style photo frame */}
-              <div className="absolute inset-0 rounded-xl border border-border bg-card/80 backdrop-blur-sm overflow-hidden shadow-2xl shadow-primary/20">
-                {/* Window controls */}
-                <div className="flex items-center gap-2 border-b border-border px-4 py-3">
-                  <div className="h-3 w-3 rounded-full bg-destructive/60" />
-                  <div className="h-3 w-3 rounded-full bg-yellow-500/60" />
-                  <div className="h-3 w-3 rounded-full bg-green-500/60" />
-                  <span className="ml-4 font-mono text-xs text-muted-foreground">smrithi.jpg</span>
-                </div>
+            {/* Wrapper with extra horizontal padding so stickers have room on sides */}
+            <div className="relative mx-auto max-w-md px-12 sm:px-14 lg:mx-0 lg:ml-8">
+              <div className="relative aspect-square">
+                {/* Glow effect behind photo */}
+                <div className="absolute inset-4 rounded-xl bg-gradient-to-br from-primary/40 via-lavender/30 to-pink-soft/40 blur-2xl opacity-60 animate-pulse-glow" />
                 
-                {/* Photo container */}
-                <div className="relative h-[calc(100%-44px)] w-full bg-gradient-to-br from-primary/10 via-background to-accent/10 overflow-hidden rounded-b-xl">
-                  <img 
-                    src={smrithiPhoto} 
-                    alt="Smrithi" 
-                    className="h-full w-full object-cover object-top" 
-                  />
-                  {/* Subtle scan line effect */}
-                  <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,hsl(var(--foreground))_2px,hsl(var(--foreground))_4px)]" />
+                {/* Draggable stickers around the image */}
+                <DraggableAccessories />
+                
+                {/* Terminal-style photo frame */}
+                <div className="absolute inset-0 rounded-xl border border-border bg-card/80 backdrop-blur-sm overflow-hidden shadow-2xl shadow-primary/20">
+                  {/* Window controls */}
+                  <div className="flex items-center gap-2 border-b border-border px-4 py-3">
+                    <div className="h-3 w-3 rounded-full bg-destructive/60" />
+                    <div className="h-3 w-3 rounded-full bg-yellow-500/60" />
+                    <div className="h-3 w-3 rounded-full bg-green-500/60" />
+                    <span className="ml-4 font-mono text-xs text-muted-foreground">smrithi.jpg</span>
+                  </div>
+                  
+                  {/* Photo container */}
+                  <div className="relative h-[calc(100%-44px)] w-full bg-gradient-to-br from-primary/10 via-background to-accent/10 overflow-hidden rounded-b-xl">
+                    <img 
+                      src={smrithiPhoto} 
+                      alt="Smrithi" 
+                      className="h-full w-full object-cover object-top" 
+                    />
+                  </div>
                 </div>
-              </div>
 
-              {/* Decorative elements */}
-              <div className="absolute -right-4 -top-4 h-24 w-24 rounded-lg border border-primary/30 opacity-50 pointer-events-none" />
-              <div className="absolute -bottom-6 -left-6 h-16 w-16 rounded-full bg-primary/10 blur-sm pointer-events-none" />
-              
-              {/* Code snippet decoration */}
-              <div className="absolute -right-2 bottom-8 rounded-lg border border-border bg-card/90 px-3 py-2 font-mono text-xs text-muted-foreground backdrop-blur-sm z-30 pointer-events-none">
-                <span className="text-pink-soft">import</span> Smrithi <span className="text-pink-soft">from</span> <span className="text-cyan-code">'./me'</span>
+                {/* Decorative elements */}
+                <div className="absolute -right-4 -top-4 h-24 w-24 rounded-lg border border-primary/30 opacity-50 pointer-events-none" />
+                <div className="absolute -bottom-6 -left-6 h-16 w-16 rounded-full bg-primary/10 blur-sm pointer-events-none" />
+                
+                {/* Code snippet decoration */}
+                <div className="absolute -right-2 bottom-8 rounded-lg border border-border bg-card/90 px-3 py-2 font-mono text-xs text-muted-foreground backdrop-blur-sm z-30 pointer-events-none hidden sm:block">
+                  <span className="text-pink-soft">import</span> Smrithi <span className="text-pink-soft">from</span> <span className="text-cyan-code">'./me'</span>
+                </div>
               </div>
             </div>
           </div>

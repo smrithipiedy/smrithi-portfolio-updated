@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { Sparkles, Star, Heart, Zap, Coffee, Code2, Rocket, Gamepad2, BookOpen, Camera } from 'lucide-react';
 
 interface Sticker {
@@ -6,24 +6,19 @@ interface Sticker {
   icon: React.ReactNode;
   color: string;
   label: string;
-  initialPosition: { x: number; y: number };
   rotation: number;
 }
 
-// Evenly spaced positions around the image (avoiding top textbox and center person)
-const stickers: Sticker[] = [
-  // Left side (top to bottom)
-  { id: 'sparkles', icon: <Sparkles className="w-6 h-6" />, color: 'text-yellow-400', label: 'Sparkles', initialPosition: { x: -50, y: 120 }, rotation: -12 },
-  { id: 'heart', icon: <Heart className="w-5 h-5" />, color: 'text-pink-400', label: 'Heart', initialPosition: { x: -45, y: 220 }, rotation: 8 },
-  { id: 'coffee', icon: <Coffee className="w-5 h-5" />, color: 'text-amber-500', label: 'Coffee', initialPosition: { x: -50, y: 320 }, rotation: -15 },
-  // Right side (top to bottom)
-  { id: 'star', icon: <Star className="w-6 h-6" />, color: 'text-cyan-400', label: 'Star', initialPosition: { x: 350, y: 120 }, rotation: 15 },
-  { id: 'zap', icon: <Zap className="w-6 h-6" />, color: 'text-purple-400', label: 'Zap', initialPosition: { x: 355, y: 220 }, rotation: -10 },
-  { id: 'rocket', icon: <Rocket className="w-5 h-5" />, color: 'text-orange-400', label: 'Rocket', initialPosition: { x: 350, y: 320 }, rotation: 20 },
-  // Bottom (left to right)
-  { id: 'gaming', icon: <Gamepad2 className="w-6 h-6" />, color: 'text-green-400', label: 'Gaming', initialPosition: { x: 60, y: 400 }, rotation: -8 },
-  { id: 'books', icon: <BookOpen className="w-5 h-5" />, color: 'text-rose-400', label: 'Reading', initialPosition: { x: 160, y: 410 }, rotation: 12 },
-  { id: 'photography', icon: <Camera className="w-5 h-5" />, color: 'text-indigo-400', label: 'Photography', initialPosition: { x: 260, y: 400 }, rotation: -5 },
+const stickerDefs: Sticker[] = [
+  { id: 'sparkles', icon: <Sparkles className="w-5 h-5" />, color: 'text-yellow-400', label: 'Sparkles', rotation: -12 },
+  { id: 'heart', icon: <Heart className="w-5 h-5" />, color: 'text-pink-400', label: 'Heart', rotation: 8 },
+  { id: 'coffee', icon: <Coffee className="w-5 h-5" />, color: 'text-amber-500', label: 'Coffee', rotation: -15 },
+  { id: 'gaming', icon: <Gamepad2 className="w-5 h-5" />, color: 'text-green-400', label: 'Gaming', rotation: 6 },
+  { id: 'star', icon: <Star className="w-5 h-5" />, color: 'text-cyan-400', label: 'Star', rotation: 15 },
+  { id: 'zap', icon: <Zap className="w-5 h-5" />, color: 'text-purple-400', label: 'Zap', rotation: -10 },
+  { id: 'rocket', icon: <Rocket className="w-5 h-5" />, color: 'text-orange-400', label: 'Rocket', rotation: 20 },
+  { id: 'books', icon: <BookOpen className="w-5 h-5" />, color: 'text-rose-400', label: 'Reading', rotation: -8 },
+  { id: 'photography', icon: <Camera className="w-5 h-5" />, color: 'text-indigo-400', label: 'Photography', rotation: 5 },
 ];
 
 interface StickerPosition {
@@ -31,23 +26,64 @@ interface StickerPosition {
   y: number;
 }
 
-const DraggableAccessories = () => {
-  const [positions, setPositions] = useState<Record<string, StickerPosition>>(
-    stickers.reduce((acc, s) => ({ ...acc, [s.id]: s.initialPosition }), {})
-  );
-  const [dragging, setDragging] = useState<string | null>(null);
-  const dragOffset = useRef({ x: 0, y: 0 });
-  const containerRef = useRef<HTMLDivElement>(null);
+// Calculate initial positions based on container size — left & right sides only
+const getInitialPositions = (containerWidth: number, containerHeight: number): Record<string, StickerPosition> => {
+  const leftStickers = ['sparkles', 'heart', 'coffee', 'gaming'];
+  const rightStickers = ['star', 'zap', 'rocket', 'books', 'photography'];
+  
+  const positions: Record<string, StickerPosition> = {};
+  const stickerSize = 36; // approximate sticker element size
+  
+  // Left side: offset to the left of the image
+  const leftX = -stickerSize - 8;
+  const leftSpacing = Math.min((containerHeight - 40) / (leftStickers.length), 90);
+  const leftStartY = 30;
+  leftStickers.forEach((id, i) => {
+    positions[id] = { x: leftX, y: leftStartY + i * leftSpacing };
+  });
+  
+  // Right side: offset to the right of the image
+  const rightX = containerWidth + 8;
+  const rightSpacing = Math.min((containerHeight - 40) / (rightStickers.length), 80);
+  const rightStartY = 20;
+  rightStickers.forEach((id, i) => {
+    positions[id] = { x: rightX, y: rightStartY + i * rightSpacing };
+  });
+  
+  return positions;
+};
 
-  const handleResetPosition = (stickerId: string) => {
-    const sticker = stickers.find(s => s.id === stickerId);
-    if (sticker) {
-      setPositions(prev => ({
-        ...prev,
-        [stickerId]: sticker.initialPosition
-      }));
-    }
-  };
+const DraggableAccessories = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [positions, setPositions] = useState<Record<string, StickerPosition>>({});
+  const [dragging, setDragging] = useState<string | null>(null);
+  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+  const dragOffset = useRef({ x: 0, y: 0 });
+  const initialPositionsRef = useRef<Record<string, StickerPosition>>({});
+
+  // Measure container and set initial positions
+  useEffect(() => {
+    const updatePositions = () => {
+      if (containerRef.current) {
+        const { width, height } = containerRef.current.getBoundingClientRect();
+        setContainerSize({ width, height });
+        const initPos = getInitialPositions(width, height);
+        initialPositionsRef.current = initPos;
+        setPositions(initPos);
+      }
+    };
+    
+    updatePositions();
+    window.addEventListener('resize', updatePositions);
+    return () => window.removeEventListener('resize', updatePositions);
+  }, []);
+
+  const handleResetPosition = useCallback((stickerId: string) => {
+    setPositions(prev => ({
+      ...prev,
+      [stickerId]: initialPositionsRef.current[stickerId] || prev[stickerId]
+    }));
+  }, []);
 
   const handleDragStart = (e: React.MouseEvent | React.TouchEvent, stickerId: string) => {
     e.preventDefault();
@@ -58,6 +94,7 @@ const DraggableAccessories = () => {
     if (!containerRect) return;
     
     const currentPos = positions[stickerId];
+    if (!currentPos) return;
     const startX = clientX;
     const startY = clientY;
     let hasMoved = false;
@@ -73,26 +110,25 @@ const DraggableAccessories = () => {
       const moveX = 'touches' in moveEvent ? moveEvent.touches[0].clientX : moveEvent.clientX;
       const moveY = 'touches' in moveEvent ? moveEvent.touches[0].clientY : moveEvent.clientY;
       
-      // Check if actually moved (more than 5px)
       if (Math.abs(moveX - startX) > 5 || Math.abs(moveY - startY) > 5) {
         hasMoved = true;
       }
       
-      const containerRect = containerRef.current?.getBoundingClientRect();
-      if (!containerRect) return;
+      const rect = containerRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      
+      // Allow dragging anywhere within the image container bounds (with some padding for sides)
+      const newX = moveX - rect.left - dragOffset.current.x;
+      const newY = moveY - rect.top - dragOffset.current.y;
       
       setPositions(prev => ({
         ...prev,
-        [stickerId]: {
-          x: moveX - containerRect.left - dragOffset.current.x,
-          y: moveY - containerRect.top - dragOffset.current.y,
-        }
+        [stickerId]: { x: newX, y: newY }
       }));
     };
 
     const handleEnd = () => {
       setDragging(null);
-      // If clicked without dragging, reset to initial position
       if (!hasMoved) {
         handleResetPosition(stickerId);
       }
@@ -110,13 +146,14 @@ const DraggableAccessories = () => {
 
   return (
     <div ref={containerRef} className="absolute inset-0 pointer-events-none overflow-visible">
-      {/* Hint text - positioned at top */}
+      {/* Hint text */}
       <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-xs text-muted-foreground/60 whitespace-nowrap pointer-events-none select-none font-mono">
         ✨ drag the stickers • click to reset
       </div>
       
-      {stickers.map((sticker) => {
-        const pos = positions[sticker.id] || sticker.initialPosition;
+      {stickerDefs.map((sticker) => {
+        const pos = positions[sticker.id];
+        if (!pos) return null;
         
         return (
           <div
