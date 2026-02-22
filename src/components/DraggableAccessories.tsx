@@ -119,10 +119,10 @@ const DraggableAccessories = () => {
       
       // Constrain: stickers cannot be dragged past the right edge of the image container (into text side)
       const stickerSize = 36;
-      const maxX = rect.width + stickerSize; // allow slightly past right edge but not into text
-      const minX = -stickerSize - 20; // allow slightly past left edge
+      const maxX = rect.width + stickerSize;
+      const minX = -stickerSize - 20;
       const minY = -stickerSize;
-      const maxY = rect.height + stickerSize;
+      const maxY = rect.height - stickerSize; // keep stickers within the image height, not below
       
       const newX = Math.max(minX, Math.min(maxX, moveX - rect.left - dragOffset.current.x));
       const newY = Math.max(minY, Math.min(maxY, moveY - rect.top - dragOffset.current.y));
