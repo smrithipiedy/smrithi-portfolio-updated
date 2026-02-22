@@ -117,9 +117,15 @@ const DraggableAccessories = () => {
       const rect = containerRef.current?.getBoundingClientRect();
       if (!rect) return;
       
-      // Allow dragging anywhere within the image container bounds (with some padding for sides)
-      const newX = moveX - rect.left - dragOffset.current.x;
-      const newY = moveY - rect.top - dragOffset.current.y;
+      // Constrain: stickers cannot be dragged past the right edge of the image container (into text side)
+      const stickerSize = 36;
+      const maxX = rect.width + stickerSize; // allow slightly past right edge but not into text
+      const minX = -stickerSize - 20; // allow slightly past left edge
+      const minY = -stickerSize;
+      const maxY = rect.height + stickerSize;
+      
+      const newX = Math.max(minX, Math.min(maxX, moveX - rect.left - dragOffset.current.x));
+      const newY = Math.max(minY, Math.min(maxY, moveY - rect.top - dragOffset.current.y));
       
       setPositions(prev => ({
         ...prev,
@@ -158,8 +164,8 @@ const DraggableAccessories = () => {
         return (
           <div
             key={sticker.id}
-            className={`absolute pointer-events-auto cursor-grab active:cursor-grabbing transition-all duration-200 ${sticker.color} ${
-              dragging === sticker.id ? 'scale-125 z-50' : 'hover:scale-110 z-10'
+            className={`absolute pointer-events-auto cursor-grab active:cursor-grabbing ${sticker.color} ${
+              dragging === sticker.id ? 'scale-125 z-50' : 'hover:scale-110 z-10 transition-transform duration-200'
             }`}
             style={{
               left: pos.x,
