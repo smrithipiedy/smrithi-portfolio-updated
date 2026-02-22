@@ -52,8 +52,8 @@ const About = () => {
             className={`relative transition-all delay-200 duration-700 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}
           >
             {/* Wrapper with extra horizontal padding so stickers have room on sides */}
-            <div className="relative mx-auto max-w-md px-12 sm:px-14 lg:mx-0 lg:ml-8">
-              <div className="relative aspect-square">
+            <div className="relative mx-auto max-w-lg px-12 sm:px-14 lg:mx-0 lg:ml-8">
+              <div className="relative aspect-[3/4]">
                 {/* Glow effect behind photo */}
                 <div className="absolute inset-4 rounded-xl bg-gradient-to-br from-primary/40 via-lavender/30 to-pink-soft/40 blur-2xl opacity-60 animate-pulse-glow" />
                 
