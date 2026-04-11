@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 const Hero = () => {
   const [typedText, setTypedText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
-  const fullText = 'Web Developer';
+  const fullText = 'Full-Stack Software Developer';
 
   useEffect(() => {
     let index = 0;
@@ -79,23 +79,17 @@ const Hero = () => {
           style={{ animationDelay: '0.6s' }}
         >
           <span className="font-mono text-xl text-muted-foreground md:text-2xl">{'<'}</span>
-          <span className="text-xl text-primary md:text-2xl">{typedText}</span>
-          <span 
-            className={`text-xl text-primary md:text-2xl transition-opacity ${
-              showCursor ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
-            _
-          </span>
+          <span className="text-xl text-primary md:text-2xl">{typedText}<span className={`transition-opacity ${showCursor ? 'opacity-100' : 'opacity-0'}`}>_</span></span>
           <span className="font-mono text-xl text-muted-foreground md:text-2xl">{'/>'}</span>
         </div>
 
         {/* Description */}
         <p 
-          className="mx-auto mb-10 max-w-lg text-lg text-muted-foreground opacity-0 animate-fade-in"
+          className="mx-auto mb-10 max-w-lg text-center text-lg text-muted-foreground opacity-0 animate-fade-in"
           style={{ animationDelay: '0.8s' }}
         >
-          Crafting beautiful, functional digital experiences with clean code and thoughtful design.
+          Visionary, Creator, Trailblazer.<br />
+          Developing the future, one line of code at a time :)
         </p>
 
         {/* Social Links */}
