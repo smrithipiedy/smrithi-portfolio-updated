@@ -32,6 +32,15 @@ const achievements: Achievement[] = [
     color: 'from-primary to-pink-soft',
   },
   {
+    id: 5,
+    title: 'Winner - Vibe Coding Fest',
+    description: 'Winner at GDG Chennai Vibe Coding Fest. Built Questify, a gamified 8-bit style to-do app using AI tools.',
+    organization: 'GDG Chennai',
+    date: 'May 2025',
+    icon: Trophy,
+    color: 'from-primary to-lavender-glow',
+  },
+  {
     id: 3,
     title: 'Finalist at HackFinity Hackathon',
     description: '24-hour Agentic AI Hackathon. Built an AI-powered agentic tool for agriculture support.',
@@ -87,7 +96,7 @@ const Achievements = () => {
           </h2>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="flex flex-wrap justify-center gap-6">
           {achievements.map((achievement, index) => (
             <motion.div
               key={achievement.id}
@@ -95,7 +104,7 @@ const Achievements = () => {
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ y: -10, transition: { duration: 0.2 } }}
-              className="group relative"
+              className="group relative w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)] max-w-sm"
             >
               {/* Card Background with glass effect */}
               <div className="h-full rounded-2xl border border-border bg-card/40 p-6 backdrop-blur-sm transition-all duration-300 group-hover:border-primary/50 group-hover:bg-card/60">

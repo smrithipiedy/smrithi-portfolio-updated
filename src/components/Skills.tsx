@@ -25,19 +25,19 @@ const skills: Skill[] = [
   { name: 'Node.js', level: 80, category: 'Backend' },
   { name: 'Express.js', level: 80, category: 'Backend' },
   { name: 'Flask', level: 75, category: 'Backend' },
-  { name: 'Docker', level: 70, category: 'Backend' },
+  { name: 'Docker', level: 50, category: 'Backend' },
   // Database
   { name: 'MySQL', level: 90, category: 'Database' },
   { name: 'Supabase', level: 80, category: 'Database' },
   { name: 'MongoDB', level: 70, category: 'Database' },
-  { name: 'PostgreSQL', level: 65, category: 'Database' },
+  { name: 'PostgreSQL', level: 50, category: 'Database' },
   // Cloud & Tools
   { name: 'GitHub', level: 85, category: 'Cloud & Tools' },
-  { name: 'Git', level: 82, category: 'Cloud & Tools' },
-  { name: 'AWS', level: 65, category: 'Cloud & Tools' },
+  { name: 'Git', level: 60, category: 'Cloud & Tools' },
+  { name: 'AWS', level: 50, category: 'Cloud & Tools' },
   { name: 'Google Cloud Platform', level: 70, category: 'Cloud & Tools' },
-  { name: 'Figma', level: 75, category: 'Cloud & Tools' },
-  { name: 'Framer', level: 60, category: 'Cloud & Tools' },
+  { name: 'Figma', level: 60, category: 'Cloud & Tools' },
+  { name: 'Framer', level: 50, category: 'Cloud & Tools' },
   { name: 'Power BI', level: 65, category: 'Cloud & Tools' },
 ];
 
