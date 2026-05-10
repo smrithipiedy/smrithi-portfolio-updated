@@ -18,7 +18,7 @@ const achievements: Achievement[] = [
     title: 'Open Source Contributor',
     description: 'Merged 9+ PRs across Social Winter of Code (2025 & 2026), GSSoC 2025, and OSGC 2026 contributing to various global projects.',
     organization: 'SWOC, OSGC, GSSoC',
-    date: '2025 - 2026',
+    date: '2025 - Present',
     icon: GitMerge,
     color: 'from-primary to-lavender-glow',
   },
@@ -52,7 +52,7 @@ const achievements: Achievement[] = [
   {
     id: 4,
     title: 'Finalist at VOID.v1 Hackathon',
-    description: '24-hour Hackathon. Competed among top teams to develop a secure and scalable digital solution.',
+    description: '24-hour Hackathon. Built an AI-powered digital twin healthcare platform and competed in the Healthcare track.',
     organization: 'VIT Chennai',
     date: 'Oct 2025',
     icon: Award,
