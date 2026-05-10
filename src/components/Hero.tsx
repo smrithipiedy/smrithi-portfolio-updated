@@ -37,7 +37,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pt-20">
       {/* Decorative elements */}
       <div className="absolute left-10 top-1/4 h-20 w-20 animate-float rounded-lg border border-primary/20 opacity-20" />
       <div className="absolute right-1/4 top-20 h-3 w-3 animate-pulse rounded-full bg-primary/50" />
@@ -85,11 +85,11 @@ const Hero = () => {
 
         {/* Description */}
         <p 
-          className="mx-auto mb-10 max-w-lg text-center text-lg text-muted-foreground opacity-0 animate-fade-in"
+          className="mx-auto mb-10 max-w-2xl text-center text-lg text-foreground/90 opacity-0 animate-fade-in"
           style={{ animationDelay: '0.8s' }}
         >
-          Visionary, Creator, Trailblazer.<br />
-          Developing the future, one line of code at a time :)
+          CS student by day, breaking things and fixing them by night.<br />
+          Turning caffeine and curiosity into full stack applications.
         </p>
 
         {/* Social Links */}
@@ -98,7 +98,7 @@ const Hero = () => {
           style={{ animationDelay: '1s' }}
         >
           <a
-            href="https://github.com"
+            href="https://github.com/smrithipiedy"
             target="_blank"
             rel="noopener noreferrer"
             className="group rounded-lg border border-border bg-card/50 p-3 transition-all hover:border-primary hover:bg-card"
@@ -107,7 +107,7 @@ const Hero = () => {
             <Github className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-primary" />
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://linkedin.com/in/smrithipiedy"
             target="_blank"
             rel="noopener noreferrer"
             className="group rounded-lg border border-border bg-card/50 p-3 transition-all hover:border-primary hover:bg-card"
@@ -116,7 +116,7 @@ const Hero = () => {
             <Linkedin className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-primary" />
           </a>
           <a
-            href="mailto:hello@smrithi.dev"
+            href="mailto:smrithipiedy49@gmail.com"
             className="group rounded-lg border border-border bg-card/50 p-3 transition-all hover:border-primary hover:bg-card"
             aria-label="Email"
           >
@@ -124,9 +124,9 @@ const Hero = () => {
           </a>
         </div>
 
-        {/* CTA Button */}
+        {/* CTA Buttons */}
         <div 
-          className="opacity-0 animate-fade-in"
+          className="flex flex-wrap justify-center gap-4 opacity-0 animate-fade-in"
           style={{ animationDelay: '1.2s' }}
         >
           <Button
@@ -135,6 +135,14 @@ const Hero = () => {
             onClick={() => scrollToSection('#projects')}
           >
             <span className="relative z-10">view_projects()</span>
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            className="group relative overflow-hidden px-8 py-6 font-mono border-primary text-primary hover:bg-primary/10"
+            onClick={() => window.open('https://drive.google.com/file/d/1vGJYuhtpy9TrW3TAyQEMreh2f1eINWjh/view?usp=sharing', '_blank')}
+          >
+            <span className="relative z-10">view_resume()</span>
           </Button>
         </div>
       </div>

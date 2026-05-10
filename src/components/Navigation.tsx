@@ -7,6 +7,8 @@ const navLinks = [
   { href: '#experience', label: 'Experience' },
   { href: '#skills', label: 'Skills' },
   { href: '#projects', label: 'Projects' },
+  { href: '#certifications', label: 'Certifications' },
+  { href: '#achievements', label: 'Achievements' },
   { href: '#contact', label: 'Contact' },
 ];
 
@@ -35,58 +37,59 @@ const Navigation = () => {
     <nav
       className="fixed left-0 right-0 top-0 z-50 flex justify-center px-4 pt-4 transition-all duration-300"
     >
-      <div className={`flex w-full max-w-5xl items-center justify-between rounded-full border px-6 py-3 backdrop-blur-xl transition-all duration-300 ${
-        scrolled
-          ? 'border-primary/30 bg-card/70 shadow-lg shadow-primary/10'
-          : 'border-border/60 bg-card/50'
-      }`}>
-        {/* Logo with retro style */}
-        <a
-          href="#"
-          className="flex items-center gap-2 text-xl font-semibold text-foreground transition-colors hover:text-primary"
-          onClick={(e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-        >
-          <Terminal className="h-5 w-5 text-primary" style={{ filter: 'drop-shadow(0 0 4px hsl(var(--primary)))' }} />
-          <span className="font-mono">smrithi</span>
-          <span className="text-primary animate-flicker">_</span>
-        </a>
+      <div className={`flex w-full max-w-6xl items-center justify-between rounded-full border px-6 py-3 backdrop-blur-xl transition-all duration-300 border-primary/30 bg-card/70 shadow-lg shadow-primary/10`}>
+        {/* Left: Logo */}
+        <div className="flex flex-1 items-center justify-start">
+          <a
+            href="#"
+            className="flex items-center gap-2 text-xl font-semibold text-foreground transition-colors hover:text-primary"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          >
+            <Terminal className="h-5 w-5 text-primary" style={{ filter: 'drop-shadow(0 0 4px hsl(var(--primary)))' }} />
+            <span className="font-mono">smrithi</span>
+            <span className="text-primary animate-flicker">_</span>
+          </a>
+        </div>
 
-        {/* Desktop Navigation */}
-        <div className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
+        {/* Center: Desktop Navigation */}
+        <div className="hidden flex-[2] items-center justify-center gap-8 md:flex">
+          {navLinks.slice(0, -1).map((link) => (
             <button
               key={link.href}
               onClick={() => handleNavClick(link.href)}
-              className="group relative text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="group relative text-sm text-muted-foreground transition-colors hover:text-foreground whitespace-nowrap"
             >
               {link.label}
               <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-primary transition-all duration-300 group-hover:w-full" />
             </button>
           ))}
+        </div>
+
+        {/* Right: Button */}
+        <div className="flex flex-1 items-center justify-end">
           <Button
-            variant="outline"
-            className="border-primary/50 bg-primary/10 text-foreground hover:border-primary hover:bg-primary/20 hover:text-foreground"
+            className="bg-primary text-primary-foreground hover:shadow-lg hover:shadow-primary/25 transition-all"
             onClick={() => handleNavClick('#contact')}
           >
             <span className="font-mono text-sm">say_hello()</span>
           </Button>
-        </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="relative z-50 md:hidden"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
-        >
-          {isOpen ? (
-            <X className="h-6 w-6 text-foreground" />
-          ) : (
-            <Menu className="h-6 w-6 text-foreground" />
-          )}
-        </button>
+          {/* Mobile Menu Button */}
+          <button
+            className="relative z-50 ml-4 md:hidden"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
+            {isOpen ? (
+              <X className="h-6 w-6 text-foreground" />
+            ) : (
+              <Menu className="h-6 w-6 text-foreground" />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation Overlay */}
@@ -113,9 +116,8 @@ const Navigation = () => {
           ))}
           <div className="mt-2 border-t border-border/50 pt-4">
             <Button
-              variant="outline"
               size="lg"
-              className="w-full border-primary/50 bg-primary/10 text-foreground hover:border-primary hover:bg-primary/20 hover:text-foreground"
+              className="w-full bg-primary text-primary-foreground hover:shadow-lg hover:shadow-primary/25 transition-all"
               onClick={() => handleNavClick('#contact')}
             >
               <span className="font-mono">say_hello()</span>

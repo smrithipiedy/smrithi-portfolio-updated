@@ -6,9 +6,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/hooks/use-toast';
 
 const socialLinks = [
-  { icon: Github, href: 'https://github.com', label: 'GitHub' },
-  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-  { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
+  { icon: Github, href: 'https://github.com/smrithipiedy', label: 'GitHub' },
+  { icon: Linkedin, href: 'https://linkedin.com/in/smrithipiedy', label: 'LinkedIn' },
 ];
 
 const Contact = () => {
@@ -37,16 +36,37 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
 
-    toast({
-      title: 'Message sent!',
-      description: "Thanks for reaching out. I'll get back to you soon!",
-    });
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/smrithipiedy49@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        toast({
+          title: 'Message sent!',
+          description: "Thanks for reaching out. I'll get back to you soon!",
+        });
+        (e.target as HTMLFormElement).reset();
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: "Something went wrong. Please try again later or email me directly.",
+        variant: 'destructive',
+      });
+    }
 
     setIsSubmitting(false);
-    (e.target as HTMLFormElement).reset();
   };
 
   return (
@@ -56,30 +76,30 @@ const Contact = () => {
       className="relative py-24 md:py-32"
     >
       <div className="container mx-auto px-6">
-        {/* Section Header */}
+        {/* Section Header - UNIFORM SIZE */}
         <div className={`mb-16 text-center transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <p className="mb-2 font-mono text-sm text-primary">{'// contact'}</p>
-          <h2 className="text-3xl font-bold text-foreground md:text-4xl">
+          <h2 className="text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
             Get In Touch<span className="text-primary">.</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-md text-muted-foreground">
-            Have a project in mind or just want to chat? Feel free to reach out!
+          <p className="mx-auto mt-4 text-muted-foreground">
+            Cool ideas, collabs, or even just a good convo — I’m in. Hit me up!
           </p>
         </div>
 
         <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-2">
           {/* Contact Info */}
-          <div 
+          <div
             className={`transition-all duration-700 delay-200 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}
           >
             <div className="mb-8">
               <h3 className="mb-6 text-xl font-semibold text-foreground">
                 Let's connect
               </h3>
-              
+
               <div className="space-y-4">
                 <a
-                  href="mailto:hello@smrithi.dev"
+                  href="mailto:smrithipiedy49@gmail.com"
                   className="group flex items-center gap-4 rounded-lg border border-border bg-card/50 p-4 transition-all duration-300 hover:border-primary/50 hover:bg-card"
                 >
                   <div className="rounded-lg bg-primary/10 p-3">
@@ -88,7 +108,7 @@ const Contact = () => {
                   <div>
                     <p className="text-sm text-muted-foreground">Email</p>
                     <p className="font-medium text-foreground group-hover:text-primary">
-                      hello@smrithi.dev
+                      smrithipiedy49@gmail.com
                     </p>
                   </div>
                 </a>
@@ -99,7 +119,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Location</p>
-                    <p className="font-medium text-foreground">Available Worldwide</p>
+                    <p className="font-medium text-foreground">Chennai, Tamil Nadu, India</p>
                   </div>
                 </div>
               </div>
@@ -135,7 +155,7 @@ const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <div 
+          <div
             className={`transition-all duration-700 delay-300 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}
           >
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -213,7 +233,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
-    </section>
+    </section >
   );
 };
 

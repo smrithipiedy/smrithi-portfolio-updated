@@ -13,32 +13,87 @@ interface Certification {
 const certifications: Certification[] = [
   {
     id: 1,
-    title: 'AWS Certified Developer',
-    issuer: 'Amazon Web Services',
-    date: '2023',
-    credentialUrl: '#',
+    title: 'McKinsey Forward Program',
+    issuer: 'McKinsey.org',
+    date: 'Dec 2025',
+    credentialUrl: 'https://www.credly.com/badges/68128ad9-bfb9-431d-a930-98e94b6dec25/public_url',
     earned: true,
   },
   {
     id: 2,
-    title: 'Meta Frontend Developer',
-    issuer: 'Meta',
-    date: '2023',
-    credentialUrl: '#',
+    title: 'Cloud Computing',
+    issuer: 'NPTEL',
+    date: 'May 2025',
+    credentialUrl: 'https://www.linkedin.com/in/smrithipiedy/overlay/Certifications/25292560/treasury?profileId=ACoAAEs_XakB5TvBu1CfQobTfsN3RE0XaUeMpDk',
     earned: true,
   },
   {
     id: 3,
-    title: 'TypeScript Professional',
-    issuer: 'Microsoft',
-    date: '2022',
-    credentialUrl: '#',
+    title: 'Building AI-Powered Search with MongoDB Vector Search',
+    issuer: 'MongoDB',
+    date: 'Apr 2025',
+    credentialUrl: 'https://www.credly.com/badges/09559639-220f-459c-af0a-f96eb2846f60/',
     earned: true,
   },
   {
     id: 4,
-    title: 'Google Cloud Associate',
-    issuer: 'Google',
+    title: 'Front-End Web Development',
+    issuer: 'Infosys Springboard',
+    date: 'Apr 2025',
+    credentialUrl: 'https://www.linkedin.com/in/smrithipiedy/overlay/Certifications/618870649/treasury/?profileId=ACoAAEs_XakB5TvBu1CfQobTfsN3RE0XaUeMpDk',
+    earned: true,
+  },
+  {
+    id: 5,
+    title: 'Postman API Fundamentals Student Expert',
+    issuer: 'Postman',
+    date: 'Feb 2025',
+    credentialUrl: 'https://badgr.com/public/assertions/tsOWU0p-SCK1Aj7euFchPg?identity__email=smrithipiedy49%40gmail.com',
+    earned: true,
+  },
+  {
+    id: 6,
+    title: 'User Experience (UX)',
+    issuer: 'Accenture',
+    date: 'Dec 2024',
+    credentialUrl: 'https://www.futurelearn.com/certificates/m9a4x4q',
+    earned: true,
+  },
+  {
+    id: 7,
+    title: 'Introduction to Front-End Development',
+    issuer: 'Meta',
+    date: 'Nov 2024',
+    credentialUrl: 'https://www.coursera.org/account/accomplishments/verify/J0OQMKOSVZGW?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course',
+    earned: true,
+  },
+  {
+    id: 8,
+    title: 'Programming Fundamentals Using Python',
+    issuer: 'Infosys Springboard',
+    date: 'Aug 2024',
+    credentialUrl: 'https://www.linkedin.com/in/smrithipiedy/overlay/Certifications/1828450921/treasury/?profileId=ACoAAEs_XakB5TvBu1CfQobTfsN3RE0XaUeMpDk',
+    earned: true,
+  },
+  {
+    id: 9,
+    title: 'Initial Grade Piano',
+    issuer: 'Trinity College London',
+    date: 'Feb 2022',
+    credentialUrl: 'https://www.linkedin.com/in/smrithipiedy/overlay/Certifications/730527793/treasury/?profileId=ACoAAEs_XakB5TvBu1CfQobTfsN3RE0XaUeMpDk',
+    earned: true,
+  },
+  {
+    id: 10,
+    title: 'CS50x: Introduction to Computer Science',
+    issuer: 'Harvard University',
+    date: 'In Progress',
+    earned: false,
+  },
+  {
+    id: 11,
+    title: 'Code In Place 2026',
+    issuer: 'Stanford University',
     date: 'In Progress',
     earned: false,
   },
@@ -68,20 +123,21 @@ const Certifications = () => {
 
   return (
     <section
+      id="certifications"
       ref={sectionRef}
       className="relative py-24 md:py-32"
     >
       <div className="container mx-auto px-6">
-        {/* Section Header */}
+        {/* Section Header - UNIFORM SIZE */}
         <div className={`mb-16 text-center transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <p className="mb-2 font-mono text-sm text-primary">{'// certifications'}</p>
-          <h2 className="text-3xl font-bold text-foreground md:text-4xl">
+          <h2 className="text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
             Credentials<span className="text-primary">.</span>
           </h2>
         </div>
 
-        {/* Certifications Grid */}
-        <div className="mx-auto grid max-w-4xl gap-4 sm:grid-cols-2">
+        {/* Certifications Grid - 3 COLUMNS */}
+        <div className="mx-auto grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {certifications.map((cert, index) => (
             <div
               key={cert.id}
@@ -90,7 +146,7 @@ const Certifications = () => {
                   ? 'border-border bg-card/80 hover:border-primary/50 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10'
                   : 'border-dashed border-border/50 bg-card/30'
               } ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              style={{ transitionDelay: `${index * 50}ms` }}
               onMouseEnter={() => setHoveredCert(cert.id)}
               onMouseLeave={() => setHoveredCert(null)}
             >
