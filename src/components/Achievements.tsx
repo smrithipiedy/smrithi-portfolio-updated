@@ -16,16 +16,16 @@ const achievements: Achievement[] = [
   {
     id: 1,
     title: 'Open Source Contributor',
-    description: 'Merged 9+ PRs across Social Winter of Code (2025 & 2026) and GSSoC 2025, contributing to various global projects.',
-    organization: 'SWOC & GSSoC',
+    description: 'Merged 9+ PRs across Social Winter of Code (2025 & 2026), GSSoC 2025, and OSGC 2026 contributing to various global projects.',
+    organization: 'SWOC, OSGC, GSSoC',
     date: '2025 - 2026',
     icon: GitMerge,
     color: 'from-primary to-lavender-glow',
   },
   {
     id: 2,
-    title: 'First Place Winner',
-    description: 'Sparkathon (Intra-college Hackathon). Developed an innovative solution under 24 hours focusing on college-wide problems.',
+    title: 'Hackathon Winner',
+    description: 'First place winner at Sparkathon (Intra-college Hackathon). Developed an innovative solution under 24 hours focusing on college-wide problems.',
     organization: 'MNM Jain Engineering College',
     date: 'Feb 2026',
     icon: Trophy,
@@ -33,7 +33,7 @@ const achievements: Achievement[] = [
   },
   {
     id: 3,
-    title: 'Finalist at HackFinity',
+    title: 'Finalist at HackFinity Hackathon',
     description: '24-hour Agentic AI Hackathon. Built an AI-powered agentic tool for agriculture support.',
     organization: 'SIMATS Engineering College',
     date: 'Jul 2025',
@@ -42,7 +42,7 @@ const achievements: Achievement[] = [
   },
   {
     id: 4,
-    title: 'Finalist at VOID.v1',
+    title: 'Finalist at VOID.v1 Hackathon',
     description: '24-hour Hackathon. Competed among top teams to develop a secure and scalable digital solution.',
     organization: 'VIT Chennai',
     date: 'Oct 2025',
@@ -103,10 +103,8 @@ const Achievements = () => {
                 <div className={`absolute left-0 top-0 h-1 w-0 bg-gradient-to-r ${achievement.color} transition-all duration-500 group-hover:w-full rounded-t-2xl`} />
 
                 {/* Icon Circle */}
-                <div className={`mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${achievement.color} p-0.5 shadow-lg shadow-primary/10 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6`}>
-                  <div className="flex h-full w-full items-center justify-center rounded-xl bg-card/90 backdrop-blur-xl">
-                    <achievement.icon className={`h-7 w-7 bg-gradient-to-br ${achievement.color} bg-clip-text text-primary`} />
-                  </div>
+                <div className={`mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${achievement.color} shadow-lg shadow-primary/10 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6`}>
+                  <achievement.icon className="h-7 w-7 text-primary-foreground" />
                 </div>
 
                 {/* Content */}

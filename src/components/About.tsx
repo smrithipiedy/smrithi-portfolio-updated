@@ -97,7 +97,7 @@ const About = () => {
             className={`flex flex-col justify-center transition-all delay-300 duration-700 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}
           >
             <h3 className="mb-4 text-2xl font-semibold text-foreground">
-              Not Just Another CS Student!
+              More than just a developer!
             </h3>
             <p className="mb-6 text-foreground/90 leading-relaxed">
               I'm Smrithi, a CS undergrad from Chennai who loves building things for the web. I care about making software that's clean, functional, and actually pleasant to use. I've done 3 internships so far across different settings, from a government cybercrime wing to corporate virtual programs, and I've learned something real from each one.

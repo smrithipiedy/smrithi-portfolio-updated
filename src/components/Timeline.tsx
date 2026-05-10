@@ -61,7 +61,7 @@ const timelineData: TimelineItem[] = [
     id: 4,
     type: 'work',
     title: 'Web Development Intern',
-    organization: 'ShadowFox (Remote)',
+    organization: 'ShadowFox',
     period: 'Jan 2025',
     description: 'Foundation and portfolio development.',
     details: [
@@ -74,7 +74,7 @@ const timelineData: TimelineItem[] = [
     id: 5,
     type: 'work',
     title: 'Open Source Contributor',
-    organization: 'SWOC, OSGC, and GSSoC (Remote)',
+    organization: 'SWOC, OSGC, and GSSoC',
     period: '2025 - Present',
     description: 'Contributing to global open source projects.',
     details: [
@@ -87,7 +87,7 @@ const timelineData: TimelineItem[] = [
     id: 6,
     type: 'work',
     title: 'Python Project Intern',
-    organization: 'Infosys Springboard (Remote)',
+    organization: 'Infosys Springboard',
     period: 'Feb 2025 - Apr 2025',
     description: 'Agile Management Dashboard Development.',
     details: [
@@ -101,7 +101,7 @@ const timelineData: TimelineItem[] = [
     id: 7,
     type: 'work',
     title: 'Cybersecurity Project Intern',
-    organization: 'Tamil Nadu Cyber Crime Wing (On-site)',
+    organization: 'Tamil Nadu Cyber Crime Wing, Chennai',
     period: 'Jun 2025 - Jul 2025',
     description: 'Request Tracking Dashboard for Law Enforcement.',
     details: [
@@ -115,7 +115,7 @@ const timelineData: TimelineItem[] = [
     id: 8,
     type: 'work',
     title: 'Full Stack Development Intern',
-    organization: 'AdroIT Technologies Pvt. Ltd. (Virtual)',
+    organization: 'AdroIT Technologies Pvt. Ltd.',
     period: 'Dec 2025 - Feb 2026',
     description: 'MERN-based Learning Management System.',
     details: [
@@ -210,12 +210,12 @@ const Timeline = () => {
 
             {/* The Sparkle / Fire Star - HIGH Z-INDEX TO COVER LINE */}
             <div
-              className="absolute left-1/2 -translate-x-1/2 z-10 pointer-events-none"
+              className="absolute left-1/2 -translate-x-1/2 z-10 pointer-events-none scale-50 md:scale-100"
               style={{ top: `${starPosition}px` }}
             >
               <div className="relative flex items-center justify-center">
                 {/* Background Bloomer to hide the line completely */}
-                <div className="absolute h-8 w-8 rounded-full bg-background/80 blur-sm" />
+                <div className="absolute h-8 w-8 rounded-full bg-background/90 blur-md" />
 
                 {/* Core Sparkle - Refined Size */}
                 <div className="absolute h-10 w-10 animate-spin [animation-duration:4s]">
@@ -235,10 +235,6 @@ const Timeline = () => {
                 <div className="absolute bottom-full mb-[-4px] flex flex-col items-center">
                   <div className="h-16 w-1 bg-gradient-to-t from-white via-primary to-transparent opacity-90 rounded-full" />
                 </div>
-
-                {/* Floating Embers */}
-                <div className="absolute -top-5 -left-5 h-1 w-1 rounded-full bg-primary animate-ping" />
-                <div className="absolute -top-7 right-2 h-1 w-1 rounded-full bg-pink-soft animate-ping [animation-delay:0.8s]" />
               </div>
             </div>
           </div>
@@ -271,7 +267,7 @@ const Timeline = () => {
                     <div className={`flex flex-col md:flex-row items-center gap-12 ${isLeft ? 'md:justify-start' : 'md:justify-end'
                       }`}>
                       <div
-                        className={`group relative z-30 w-full md:w-[42%] cursor-pointer rounded-xl border-2 border-border bg-card p-6 shadow-xl transition-all duration-500 hover:border-primary/80 hover:shadow-[0_0_30px_rgba(168,85,247,0.2)] ${isLeft ? 'hover:-translate-x-2' : 'hover:translate-x-2'
+                        className={`group relative z-30 w-[calc(100%-2.5rem)] ml-10 md:ml-0 md:w-[42%] cursor-pointer rounded-xl border-2 border-border bg-card/95 md:bg-card p-6 shadow-xl transition-all duration-500 hover:border-primary/80 hover:shadow-[0_0_30px_rgba(168,85,247,0.2)] ${isLeft ? 'hover:-translate-x-2' : 'hover:translate-x-2'
                           }`}
                         onClick={() => item.details && toggleExpand(item.id)}
                       >
@@ -297,7 +293,7 @@ const Timeline = () => {
                                 ))}
                               </ul>
                             </div>
-                            <button className="mt-4 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary/60 transition-all hover:text-primary">
+                            <button className="mt-4 flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary transition-all hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_10px_rgba(168,85,247,0.3)]">
                               <span className="font-mono">{isExpanded ? 'LESS' : 'MORE'}</span>
                               <ChevronDown className={`h-4 w-4 transition-transform duration-500 ${isExpanded ? 'rotate-180' : ''}`} />
                             </button>

@@ -256,7 +256,7 @@ const Projects = () => {
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-muted-foreground transition-all duration-200 hover:text-primary hover:scale-110"
+                          className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-primary/25"
                           aria-label="View source code"
                         >
                           <Github className="h-4 w-4" />

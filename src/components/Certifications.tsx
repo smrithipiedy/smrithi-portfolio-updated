@@ -97,6 +97,13 @@ const certifications: Certification[] = [
     date: 'In Progress',
     earned: false,
   },
+  {
+    id: 12,
+    title: 'GitHub Foundations Certification',
+    issuer: 'GitHub',
+    date: 'In Progress',
+    earned: false,
+  },
 ];
 
 const Certifications = () => {
