@@ -140,7 +140,7 @@ const Hero = () => {
             size="lg"
             variant="outline"
             className="group relative overflow-hidden px-8 py-6 font-mono border-primary text-primary hover:bg-primary/10"
-            onClick={() => window.open('https://drive.google.com/file/d/1vGJYuhtpy9TrW3TAyQEMreh2f1eINWjh/view?usp=sharing', '_blank')}
+            onClick={() => window.open('https://drive.google.com/file/d/1mcMEU79_g-kkdfKS4aS-xKInxFBkvxNb/view?usp=sharing', '_blank')}
           >
             <span className="relative z-10">view_resume()</span>
           </Button>

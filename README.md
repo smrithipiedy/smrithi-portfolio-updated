@@ -2,8 +2,6 @@
 
 A premium, retro-futuristic portfolio built with **React**, **Vite**, **TypeScript**, and **Tailwind CSS**. Featuring smooth animations, dynamic tech stack visualizations, and a unique experience timeline.
 
-![Portfolio Preview](public/placeholder.svg)
-
 ## ✨ Features
 
 - **Interactive Hero**: Dynamic typography with a typing cursor effect and retro-futuristic glow.

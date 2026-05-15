@@ -52,35 +52,11 @@ const certifications: Certification[] = [
     earned: true,
   },
   {
-    id: 6,
-    title: 'User Experience (UX)',
-    issuer: 'Accenture',
-    date: 'Dec 2024',
-    credentialUrl: 'https://www.futurelearn.com/certificates/m9a4x4q',
-    earned: true,
-  },
-  {
     id: 7,
     title: 'Introduction to Front-End Development',
     issuer: 'Meta',
     date: 'Nov 2024',
     credentialUrl: 'https://www.coursera.org/account/accomplishments/verify/J0OQMKOSVZGW?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course',
-    earned: true,
-  },
-  {
-    id: 8,
-    title: 'Programming Fundamentals Using Python',
-    issuer: 'Infosys Springboard',
-    date: 'Aug 2024',
-    credentialUrl: 'https://www.linkedin.com/in/smrithipiedy/overlay/Certifications/1828450921/treasury/?profileId=ACoAAEs_XakB5TvBu1CfQobTfsN3RE0XaUeMpDk',
-    earned: true,
-  },
-  {
-    id: 9,
-    title: 'Initial Grade Piano',
-    issuer: 'Trinity College London',
-    date: 'Feb 2022',
-    credentialUrl: 'https://www.linkedin.com/in/smrithipiedy/overlay/Certifications/730527793/treasury/?profileId=ACoAAEs_XakB5TvBu1CfQobTfsN3RE0XaUeMpDk',
     earned: true,
   },
   {
@@ -246,6 +222,21 @@ const Certifications = () => {
               )}
             </div>
           ))}
+        </div>
+
+        {/* View More Certifications */}
+        <div className={`mt-12 text-center transition-all duration-700 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          <p className="text-muted-foreground">
+            View more certifications here:{' '}
+            <a 
+              href="https://drive.google.com/drive/folders/1NlWd2Te4lcpMwjvqVrpp6vTy9xADFQKr?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              Google Drive Folder
+            </a>
+          </p>
         </div>
       </div>
     </section>

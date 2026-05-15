@@ -34,13 +34,21 @@ const projects: Project[] = [
   },
   {
     id: 3,
-    title: 'BharatVani',
+    title: 'BharatVani (Frontend)',
     description: 'Multilingual AI voice interface for India, bridging the digital divide with toll-free access to government services via simple phone calls.',
     tags: ['React', 'AWS', 'AI Voice', 'TypeScript'],
     image: '/projects/bharatvani.png',
     liveUrl: 'https://bharatvani.vercel.app/',
     githubUrl: 'https://github.com/smrithipiedy/BharatVani-Frontend',
     featured: true,
+  },
+  {
+    id: 9,
+    title: 'Agile Management Dashboard',
+    description: 'Workflow streamlining tool with sprint tracking, multi-role auth, and MFA for secure collaboration.',
+    tags: ['Python', 'Flask', 'SQLAlchemy'],
+    githubUrl: 'https://github.com/smrithipiedy/Agile-Management-Dashboard',
+    featured: false,
   },
   {
     id: 4,
@@ -80,14 +88,6 @@ const projects: Project[] = [
     description: 'Letterboxd clone offering movie watchlists, reviews, and notes for cinephiles using TMDB API.',
     tags: ['Next.js', 'TMDB API', 'CSS'],
     githubUrl: 'https://github.com/smrithipiedy/Cineboxd',
-    featured: false,
-  },
-  {
-    id: 9,
-    title: 'Agile Management Dashboard',
-    description: 'Workflow streamlining tool with sprint tracking, multi-role auth, and MFA for secure collaboration.',
-    tags: ['Python', 'Flask', 'SQLAlchemy'],
-    githubUrl: 'https://github.com/smrithipiedy/Agile-Management-Dashboard',
     featured: false,
   },
 ];
