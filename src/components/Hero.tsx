@@ -23,9 +23,9 @@ const Hero = () => {
       if (!isDeleting) {
         // Typing
         if (typedText === currentSentence) {
-          // Finished typing, blink thrice (3 * (530ms * 2)) then start deleting
-          setTimeout(() => setIsDeleting(true), 3180);
-          setTypingSpeed(3180);
+          // Finished typing, wait 2 seconds then start deleting
+          setTimeout(() => setIsDeleting(true), 2000);
+          setTypingSpeed(2000);
         } else {
           setTypedText(currentSentence.slice(0, typedText.length + 1));
           setTypingSpeed(100);
