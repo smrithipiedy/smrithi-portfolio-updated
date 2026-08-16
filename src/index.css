@@ -340,4 +340,18 @@
       2px 2px 0 0 hsl(var(--border)),
       4px 4px 0 0 hsl(var(--border) / 0.5);
   }
+
+  /* Intro loader monogram */
+  @keyframes draw-monogram {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes monogram-fill {
+    to { fill: url(#sp-grad); }
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
 }
+
