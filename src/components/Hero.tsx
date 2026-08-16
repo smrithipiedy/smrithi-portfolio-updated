@@ -5,21 +5,48 @@ import { Button } from '@/components/ui/button';
 const Hero = () => {
   const [typedText, setTypedText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
-  const fullText = 'Full-Stack Software Developer';
+
+  const sentences = [
+    'Full Stack Software Developer',
+    'Agentic AI and Gen AI Enthusiast',
+    'Aspiring AI Engineer'
+  ];
+
+  const [sentenceIndex, setSentenceIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(100);
 
   useEffect(() => {
-    let index = 0;
-    const typingInterval = setInterval(() => {
-      if (index <= fullText.length) {
-        setTypedText(fullText.slice(0, index));
-        index++;
-      } else {
-        clearInterval(typingInterval);
-      }
-    }, 100);
+    const currentSentence = sentences[sentenceIndex];
 
-    return () => clearInterval(typingInterval);
-  }, []);
+    const handleTyping = () => {
+      if (!isDeleting) {
+        // Typing
+        if (typedText === currentSentence) {
+          // Finished typing, blink thrice (3 * (530ms * 2)) then start deleting
+          setTimeout(() => setIsDeleting(true), 3180);
+          setTypingSpeed(3180);
+        } else {
+          setTypedText(currentSentence.slice(0, typedText.length + 1));
+          setTypingSpeed(100);
+        }
+      } else {
+        // Deleting
+        if (typedText === '') {
+          // Finished deleting, move to next sentence
+          setIsDeleting(false);
+          setSentenceIndex((prev) => (prev + 1) % sentences.length);
+          setTypingSpeed(100);
+        } else {
+          setTypedText(currentSentence.slice(0, typedText.length - 1));
+          setTypingSpeed(50);
+        }
+      }
+    };
+
+    const timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [typedText, isDeleting, sentenceIndex, typingSpeed]);
 
   useEffect(() => {
     const cursorInterval = setInterval(() => {
@@ -140,7 +167,7 @@ const Hero = () => {
             size="lg"
             variant="outline"
             className="group relative overflow-hidden px-8 py-6 font-mono border-primary text-primary hover:bg-primary/10"
-            onClick={() => window.open('https://drive.google.com/file/d/1mcMEU79_g-kkdfKS4aS-xKInxFBkvxNb/view?usp=sharing', '_blank')}
+            onClick={() => window.open('https://drive.google.com/file/d/16JAGVUBugmz6P2_V-wlFwe89fUcw4OQO/view?usp=sharing', '_blank')}
           >
             <span className="relative z-10">view_resume()</span>
           </Button>

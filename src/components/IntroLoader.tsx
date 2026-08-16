@@ -44,13 +44,20 @@ const IntroLoader = ({ onDone }: { onDone?: () => void }) => {
     >
       {/* Grid Background */}
       <div
-        className="absolute inset-0 z-0 opacity-30"
+        className="absolute inset-0 z-0 opacity-50"
         style={{
           backgroundImage: `
-            linear-gradient(to right, hsl(var(--lavender) / 0.1) 1px, transparent 1px),
-            linear-gradient(to bottom, hsl(var(--lavender) / 0.1) 1px, transparent 1px)
+            linear-gradient(to right, hsl(var(--lavender) / 0.2) 1px, transparent 1px),
+            linear-gradient(to bottom, hsl(var(--lavender) / 0.2) 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
+        }}
+      />
+      {/* Radial Glow Overlay */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle at center, hsl(var(--lavender) / 0.15) 0%, transparent 70%)',
         }}
       />
 
@@ -126,7 +133,7 @@ const IntroLoader = ({ onDone }: { onDone?: () => void }) => {
             </mask>
           </defs>
           <text
-            x="50%"
+            x="45%"
             y="180"
             textAnchor="middle"
             fill="hsl(0 0% 100%)"

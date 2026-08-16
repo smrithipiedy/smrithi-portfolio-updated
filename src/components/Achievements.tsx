@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Trophy, Award, Star, GitMerge, ExternalLink } from 'lucide-react';
+import { Trophy, Award, Star, GitMerge, ExternalLink, Zap, Bot, HeartPulse, Globe, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface Achievement {
@@ -37,7 +37,7 @@ const achievements: Achievement[] = [
     description: 'Winner at GDG Chennai Vibe Coding Fest. Built Questify, a gamified 8-bit style to-do app using AI tools.',
     organization: 'GDG Chennai',
     date: 'May 2025',
-    icon: Trophy,
+    icon: Zap,
     color: 'from-primary to-lavender-glow',
   },
   {
@@ -46,7 +46,7 @@ const achievements: Achievement[] = [
     description: '24-hour Agentic AI Hackathon. Built an AI-powered agentic tool for agriculture support.',
     organization: 'SIMATS Engineering College',
     date: 'Jul 2025',
-    icon: Star,
+    icon: Bot,
     color: 'from-primary to-lavender-glow',
   },
   {
@@ -55,8 +55,35 @@ const achievements: Achievement[] = [
     description: '24-hour Hackathon. Built an AI-powered digital twin healthcare platform and competed in the Healthcare track.',
     organization: 'VIT Chennai',
     date: 'Oct 2025',
-    icon: Award,
+    icon: HeartPulse,
     color: 'from-primary to-pink-soft',
+  },
+  {
+    id: 6,
+    title: 'Zonal Round - Women Who Master Hackathon',
+    description: 'Recognized in the top 2,000 out of 100,000+ participants in the Zonal Round.',
+    organization: 'Aspire For Her x Logitech',
+    date: '2026',
+    icon: Award,
+    color: 'from-primary to-lavender-glow',
+  },
+  {
+    id: 7,
+    title: 'Prototype Development Round - AI for Bharat',
+    description: 'Advanced to the Prototype Development Round, ranking among the top 1,000 out of 5,000+ teams.',
+    organization: 'AWS',
+    date: '2026',
+    icon: Globe,
+    color: 'from-primary to-pink-soft',
+  },
+  {
+    id: 8,
+    title: 'Google Student Ambassador',
+    description: 'Selected as Google Student Ambassador 2026, conducting monthly interactive Gemini AI usage-based events. Founding Member & Lead, Google Gemini Club, MNM Jain Engineering College.',
+    organization: 'Google',
+    date: '2026',
+    icon: Users,
+    color: 'from-primary to-lavender-glow',
   },
 ];
 
