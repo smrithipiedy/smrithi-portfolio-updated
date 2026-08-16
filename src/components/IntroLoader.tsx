@@ -1,23 +1,15 @@
 import { useEffect, useState } from 'react';
 
 const IntroLoader = () => {
-  const [progress, setProgress] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    const start = Date.now();
-    const tick = setInterval(() => {
-      const pct = Math.min(100, ((Date.now() - start) / 2600) * 100);
-      setProgress(pct);
-    }, 40);
-
-    const leaveTimer = setTimeout(() => setLeaving(true), 2600);
-    const doneTimer = setTimeout(() => setDone(true), 3300);
+    const leaveTimer = setTimeout(() => setLeaving(true), 2900);
+    const doneTimer = setTimeout(() => setDone(true), 3800);
 
     document.body.style.overflow = 'hidden';
     return () => {
-      clearInterval(tick);
       clearTimeout(leaveTimer);
       clearTimeout(doneTimer);
       document.body.style.overflow = '';
@@ -32,117 +24,108 @@ const IntroLoader = () => {
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center crt-scanlines vhs-noise transition-all duration-700 ${
-        leaving ? 'pointer-events-none opacity-0 scale-105' : 'opacity-100'
-      }`}
-      style={{ background: 'var(--gradient-hero)', position: 'fixed' }}
-      aria-hidden={leaving}
+      className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden"
+      style={{
+        position: 'fixed',
+        background: 'var(--gradient-hero)',
+        animation: leaving ? 'curtain-up 0.9s cubic-bezier(0.76, 0, 0.24, 1) forwards' : undefined,
+      }}
+      aria-hidden
     >
       {/* Ambient glow */}
       <div
-        className="pointer-events-none absolute h-[36rem] w-[36rem] rounded-full opacity-30 animate-pulse-glow"
+        className="pointer-events-none absolute h-[40rem] w-[40rem] rounded-full opacity-30"
         style={{
-          background: 'radial-gradient(circle, hsl(var(--lavender) / 0.6), transparent 65%)',
-          filter: 'blur(60px)',
+          background: 'radial-gradient(circle, hsl(var(--lavender) / 0.55), transparent 65%)',
+          filter: 'blur(70px)',
         }}
       />
 
-      {/* Monogram */}
+      {/* Initials + signature stack */}
       <div className="relative flex items-center justify-center">
-        {/* Rotating rings */}
+        {/* Translucent bold lavender initials */}
         <div
-          className="absolute h-52 w-52 rounded-full border border-primary/30"
-          style={{ animation: 'spin 6s linear infinite' }}
+          className="flex items-center justify-center select-none"
+          style={{
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontWeight: 700,
+            fontSize: 'clamp(6rem, 20vw, 12rem)',
+            lineHeight: 1,
+            letterSpacing: '0.02em',
+            color: 'hsl(var(--lavender) / 0.45)',
+            textShadow: '0 0 40px hsl(var(--lavender) / 0.35)',
+          }}
         >
-          <span className="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-foreground/90 shadow-[0_0_12px_hsl(var(--lavender-glow))]" />
+          <span style={{ animation: 'sp-from-left 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards', opacity: 0 }}>
+            S
+          </span>
+          <span style={{ animation: 'sp-from-right 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards', opacity: 0 }}>
+            P
+          </span>
         </div>
-        <div
-          className="absolute h-64 w-64 rounded-full border border-dashed border-primary/15"
-          style={{ animation: 'spin 14s linear infinite reverse' }}
-        />
 
-        <svg viewBox="0 0 200 200" className="relative h-40 w-40">
+        {/* Cursive signature written on top, tilted 40deg */}
+        <svg
+          viewBox="0 0 400 140"
+          className="pointer-events-none absolute w-[min(90vw,46rem)] overflow-visible"
+          style={{ transform: 'rotate(-40deg)' }}
+        >
           <defs>
-            <linearGradient id="sp-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="hsl(var(--lavender-glow))" />
-              <stop offset="100%" stopColor="hsl(0 0% 100%)" />
-            </linearGradient>
+            <mask id="sig-mask">
+              <rect
+                x="-20"
+                y="0"
+                width="440"
+                height="140"
+                fill="hsl(0 0% 100%)"
+                style={{
+                  transformOrigin: 'left center',
+                  transform: 'scaleX(0)',
+                  animation: 'write-signature 1.3s cubic-bezier(0.45, 0, 0.35, 1) 1s forwards',
+                }}
+              />
+            </mask>
           </defs>
           <text
             x="50%"
-            y="52%"
-            dominantBaseline="middle"
+            y="95"
             textAnchor="middle"
-            fill="url(#sp-grad)"
-            fillOpacity={0}
-            stroke="url(#sp-grad)"
-            strokeWidth="1.5"
+            fill="hsl(0 0% 100%)"
+            mask="url(#sig-mask)"
             style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: '92px',
-              fontWeight: 700,
-              letterSpacing: '2px',
-              strokeDasharray: 520,
-              strokeDashoffset: 520,
-              animation: 'draw-monogram 1.4s ease-out forwards, monogram-fill 0.8s ease-out 1s forwards',
+              fontFamily: "'Great Vibes', cursive",
+              fontSize: '120px',
+              filter: 'drop-shadow(0 0 18px hsl(var(--lavender) / 0.6))',
             }}
           >
-            SP
+            Smrithi
           </text>
         </svg>
       </div>
 
-      {/* Cursive signature */}
-      <svg viewBox="0 0 400 110" className="mt-2 h-24 w-72 overflow-visible">
-        <defs>
-          <linearGradient id="sig-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="hsl(var(--lavender-glow))" />
-            <stop offset="60%" stopColor="hsl(0 0% 100%)" />
-            <stop offset="100%" stopColor="hsl(var(--lavender))" />
-          </linearGradient>
-          <mask id="sig-mask">
-            <rect
-              x="-10"
-              y="0"
-              width="420"
-              height="110"
-              fill="hsl(0 0% 100%)"
-              style={{
-                transformOrigin: 'left center',
-                transform: 'scaleX(0)',
-                animation: 'write-signature 1.5s cubic-bezier(0.5, 0, 0.4, 1) 1.1s forwards',
-              }}
-            />
-          </mask>
-        </defs>
-        <text
-          x="50%"
-          y="70"
-          textAnchor="middle"
-          fill="url(#sig-grad)"
-          mask="url(#sig-mask)"
+      {/* Scribble trailing off the signature to the bottom of the screen */}
+      <svg
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+      >
+        <path
+          d="M64 34 C74 44, 52 50, 62 60 C70 68, 46 72, 54 82 C60 90, 44 94, 50 102"
+          fill="none"
+          stroke="hsl(0 0% 100%)"
+          strokeWidth="0.5"
+          strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
+          pathLength={100}
+          strokeDasharray={100}
+          strokeDashoffset={100}
           style={{
-            fontFamily: "'Great Vibes', cursive",
-            fontSize: '84px',
-            filter: 'drop-shadow(0 0 12px hsl(var(--lavender) / 0.5))',
-          }}
-        >
-          Smrithi
-        </text>
-      </svg>
-
-
-      {/* Progress */}
-      <div className="mt-6 h-[2px] w-52 overflow-hidden rounded-full bg-border">
-        <div
-          className="h-full rounded-full transition-[width] duration-100 ease-linear"
-          style={{
-            width: `${progress}%`,
-            background: 'linear-gradient(90deg, hsl(var(--lavender)), hsl(0 0% 100%))',
-            boxShadow: '0 0 10px hsl(var(--lavender) / 0.8)',
+            opacity: 0,
+            filter: 'drop-shadow(0 0 6px hsl(var(--lavender) / 0.7))',
+            animation: 'scribble-draw 0.6s cubic-bezier(0.6, 0, 0.4, 1) 2.3s forwards',
           }}
         />
-      </div>
+      </svg>
     </div>
   );
 };
