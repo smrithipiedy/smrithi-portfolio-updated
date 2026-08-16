@@ -138,7 +138,7 @@ const IntroLoader = () => {
           className="h-full rounded-full transition-[width] duration-100 ease-linear"
           style={{
             width: `${progress}%`,
-            background: 'var(--gradient-lavender)',
+            background: 'linear-gradient(90deg, hsl(var(--lavender)), hsl(0 0% 100%))',
             boxShadow: '0 0 10px hsl(var(--lavender) / 0.8)',
           }}
         />
