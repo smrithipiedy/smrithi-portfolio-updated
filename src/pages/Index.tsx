@@ -10,13 +10,16 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import CustomCursor from '@/components/CustomCursor';
 import FloatingParticles from '@/components/FloatingParticles';
+import IntroLoader from '@/components/IntroLoader';
 
 const Index = () => {
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-background">
+      <IntroLoader />
       {/* Background effects */}
       <FloatingParticles />
       <CustomCursor />
+
       
       {/* Gradient overlay at top */}
       <div 
