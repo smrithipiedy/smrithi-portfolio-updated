@@ -54,18 +54,18 @@ const IntroLoader = () => {
           className="absolute h-52 w-52 rounded-full border border-primary/30"
           style={{ animation: 'spin 6s linear infinite' }}
         >
-          <span className="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-accent shadow-[0_0_12px_hsl(var(--cyan-code))]" />
+          <span className="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-foreground/90 shadow-[0_0_12px_hsl(var(--lavender-glow))]" />
         </div>
         <div
-          className="absolute h-64 w-64 rounded-full border border-dashed border-accent/20"
-          style={{ animation: 'spin 12s linear infinite reverse' }}
+          className="absolute h-64 w-64 rounded-full border border-dashed border-primary/15"
+          style={{ animation: 'spin 14s linear infinite reverse' }}
         />
 
         <svg viewBox="0 0 200 200" className="relative h-40 w-40">
           <defs>
             <linearGradient id="sp-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="hsl(var(--lavender))" />
-              <stop offset="100%" stopColor="hsl(var(--pink-soft))" />
+              <stop offset="0%" stopColor="hsl(var(--lavender-glow))" />
+              <stop offset="100%" stopColor="hsl(0 0% 100%)" />
             </linearGradient>
           </defs>
           <text
@@ -84,7 +84,7 @@ const IntroLoader = () => {
               letterSpacing: '2px',
               strokeDasharray: 520,
               strokeDashoffset: 520,
-              animation: 'draw-monogram 1.6s ease-out forwards, monogram-fill 0.9s ease-out 1.2s forwards',
+              animation: 'draw-monogram 1.4s ease-out forwards, monogram-fill 0.8s ease-out 1s forwards',
             }}
           >
             SP
@@ -92,13 +92,45 @@ const IntroLoader = () => {
         </svg>
       </div>
 
-      {/* Name */}
-      <p
-        className="mt-8 font-mono text-xs uppercase tracking-[0.5em] text-muted-foreground opacity-0"
-        style={{ animation: 'fadeUp 0.8s ease-out 1.5s forwards' }}
-      >
-        Smrithi Piedy
-      </p>
+      {/* Cursive signature */}
+      <svg viewBox="0 0 400 110" className="mt-2 h-24 w-72 overflow-visible">
+        <defs>
+          <linearGradient id="sig-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="hsl(var(--lavender-glow))" />
+            <stop offset="60%" stopColor="hsl(0 0% 100%)" />
+            <stop offset="100%" stopColor="hsl(var(--lavender))" />
+          </linearGradient>
+          <mask id="sig-mask">
+            <rect
+              x="-10"
+              y="0"
+              width="420"
+              height="110"
+              fill="hsl(0 0% 100%)"
+              style={{
+                transformOrigin: 'left center',
+                transform: 'scaleX(0)',
+                animation: 'write-signature 1.5s cubic-bezier(0.5, 0, 0.4, 1) 1.1s forwards',
+              }}
+            />
+          </mask>
+        </defs>
+        <text
+          x="50%"
+          y="70"
+          textAnchor="middle"
+          fill="url(#sig-grad)"
+          mask="url(#sig-mask)"
+          style={{
+            fontFamily: "'Great Vibes', cursive",
+            fontSize: '84px',
+            filter: 'drop-shadow(0 0 12px hsl(var(--lavender) / 0.5))',
+          }}
+        >
+          Smrithi
+        </text>
+      </svg>
+
 
       {/* Progress */}
       <div className="mt-6 h-[2px] w-52 overflow-hidden rounded-full bg-border">
@@ -106,7 +138,7 @@ const IntroLoader = () => {
           className="h-full rounded-full transition-[width] duration-100 ease-linear"
           style={{
             width: `${progress}%`,
-            background: 'var(--gradient-lavender)',
+            background: 'linear-gradient(90deg, hsl(var(--lavender)), hsl(0 0% 100%))',
             boxShadow: '0 0 10px hsl(var(--lavender) / 0.8)',
           }}
         />
