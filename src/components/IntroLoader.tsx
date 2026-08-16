@@ -95,7 +95,7 @@ const IntroLoader = () => {
       {/* Name */}
       <p
         className="mt-8 font-mono text-xs uppercase tracking-[0.5em] text-muted-foreground opacity-0"
-        style={{ animation: 'fade-in 0.8s ease-out 1.6s forwards' }}
+        style={{ animation: 'fadeUp 0.8s ease-out 1.5s forwards' }}
       >
         Smrithi Piedy
       </p>
