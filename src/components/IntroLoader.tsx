@@ -1,48 +1,87 @@
 import { useEffect, useState } from 'react';
+import FloatingParticles from '@/components/FloatingParticles';
 
-const IntroLoader = () => {
+const IntroLoader = ({ onDone }: { onDone?: () => void }) => {
   const [leaving, setLeaving] = useState(false);
   const [done, setDone] = useState(false);
+  const [status, setStatus] = useState('INITIALIZING SYSTEM...');
 
   useEffect(() => {
-    const leaveTimer = setTimeout(() => setLeaving(true), 2900);
-    const doneTimer = setTimeout(() => setDone(true), 3800);
+    const leaveTimer = setTimeout(() => setLeaving(true), 2800);
+    const doneTimer = setTimeout(() => setDone(true), 3600);
+
+    const statusTimer = setTimeout(() => setStatus('LOADING ASSETS...'), 800);
+    const statusTimer2 = setTimeout(() => setStatus('ESTABLISHING CONNECTION...'), 1600);
+    const statusTimer3 = setTimeout(() => setStatus('READY.'), 2400);
 
     document.body.style.overflow = 'hidden';
     return () => {
       clearTimeout(leaveTimer);
       clearTimeout(doneTimer);
-      document.body.style.overflow = '';
+      clearTimeout(statusTimer);
+      clearTimeout(statusTimer2);
+      clearTimeout(statusTimer3);
     };
   }, []);
 
   useEffect(() => {
-    if (done) document.body.style.overflow = '';
-  }, [done]);
+    if (done) {
+      document.body.style.overflow = '';
+      onDone?.();
+    }
+  }, [done, onDone]);
 
   if (done) return null;
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden"
+      className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#0a0a0c]"
       style={{
         position: 'fixed',
-        background: 'var(--gradient-hero)',
         animation: leaving ? 'curtain-up 0.9s cubic-bezier(0.76, 0, 0.24, 1) forwards' : undefined,
       }}
       aria-hidden
     >
-      {/* Ambient glow */}
+      {/* Grid Background */}
       <div
-        className="pointer-events-none absolute h-[40rem] w-[40rem] rounded-full opacity-30"
+        className="absolute inset-0 z-0 opacity-30"
         style={{
-          background: 'radial-gradient(circle, hsl(var(--lavender) / 0.55), transparent 65%)',
-          filter: 'blur(70px)',
+          backgroundImage: `
+            linear-gradient(to right, hsl(var(--lavender) / 0.1) 1px, transparent 1px),
+            linear-gradient(to bottom, hsl(var(--lavender) / 0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px',
         }}
       />
 
+      {/* Subtle scanline effect */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none opacity-10"
+        style={{
+          background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.1), transparent)',
+          height: '100px',
+          width: '100%',
+          animation: 'scanline 4s linear infinite',
+          position: 'absolute',
+          top: 0,
+        }}
+      />
+
+      <FloatingParticles />
+
+      {/* Status Text */}
+      <div
+        className="absolute bottom-10 left-0 right-0 text-center font-retro text-xs tracking-[0.2em] opacity-50"
+        style={{
+          color: 'hsl(var(--lavender))',
+          animation: 'pulse 2s ease-in-out infinite',
+        }}
+      >
+        {status}
+      </div>
+
       {/* Initials + signature stack */}
-      <div className="relative flex items-center justify-center">
+      <div className="relative flex items-center justify-center z-10">
         {/* Translucent bold lavender initials */}
         <div
           className="flex items-center justify-center select-none"
@@ -56,76 +95,56 @@ const IntroLoader = () => {
             textShadow: '0 0 40px hsl(var(--lavender) / 0.35)',
           }}
         >
-          <span style={{ animation: 'sp-from-left 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards', opacity: 0 }}>
+          <span style={{ animation: 'sp-from-left 1s cubic-bezier(0.22, 1, 0.36, 1) forwards', opacity: 0 }}>
             S
           </span>
-          <span style={{ animation: 'sp-from-right 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards', opacity: 0 }}>
+          <span style={{ animation: 'sp-from-right 1s cubic-bezier(0.22, 1, 0.36, 1) forwards', opacity: 0 }}>
             P
           </span>
         </div>
 
-        {/* Cursive signature written on top, tilted 40deg */}
+        {/* Cursive signature written on top, slightly tilted */}
         <svg
-          viewBox="0 0 400 140"
-          className="pointer-events-none absolute w-[min(90vw,46rem)] overflow-visible"
-          style={{ transform: 'rotate(-40deg)' }}
+          viewBox="0 0 600 300"
+          className="pointer-events-none absolute w-[min(90vw,55rem)] overflow-visible"
+          style={{ transform: 'rotate(-8deg)' }}
         >
           <defs>
             <mask id="sig-mask">
               <rect
-                x="-20"
+                x="0"
                 y="0"
-                width="440"
-                height="140"
+                width="600"
+                height="300"
                 fill="hsl(0 0% 100%)"
                 style={{
                   transformOrigin: 'left center',
                   transform: 'scaleX(0)',
-                  animation: 'write-signature 1.3s cubic-bezier(0.45, 0, 0.35, 1) 1s forwards',
+                  animation: 'write-signature 1.5s cubic-bezier(0.4, 0, 0.1, 1) 1s forwards',
                 }}
               />
             </mask>
           </defs>
           <text
             x="50%"
-            y="95"
+            y="180"
             textAnchor="middle"
             fill="hsl(0 0% 100%)"
+            stroke="hsl(280 70% 30%)"
+            strokeWidth="2"
+            strokeLinejoin="round"
             mask="url(#sig-mask)"
             style={{
               fontFamily: "'Great Vibes', cursive",
-              fontSize: '120px',
-              filter: 'drop-shadow(0 0 18px hsl(var(--lavender) / 0.6))',
+              fontSize: '160px',
+              fontWeight: 400,
+              paintOrder: 'stroke fill',
             }}
           >
             Smrithi
           </text>
         </svg>
       </div>
-
-      {/* Scribble trailing off the signature to the bottom of the screen */}
-      <svg
-        className="pointer-events-none absolute inset-0 h-full w-full"
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
-      >
-        <path
-          d="M64 34 C74 44, 52 50, 62 60 C70 68, 46 72, 54 82 C60 90, 44 94, 50 102"
-          fill="none"
-          stroke="hsl(0 0% 100%)"
-          strokeWidth="0.5"
-          strokeLinecap="round"
-          vectorEffect="non-scaling-stroke"
-          pathLength={100}
-          strokeDasharray={100}
-          strokeDashoffset={100}
-          style={{
-            opacity: 0,
-            filter: 'drop-shadow(0 0 6px hsl(var(--lavender) / 0.7))',
-            animation: 'scribble-draw 0.6s cubic-bezier(0.6, 0, 0.4, 1) 2.3s forwards',
-          }}
-        />
-      </svg>
     </div>
   );
 };

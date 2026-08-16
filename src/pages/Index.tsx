@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
@@ -13,16 +14,24 @@ import FloatingParticles from '@/components/FloatingParticles';
 import IntroLoader from '@/components/IntroLoader';
 
 const Index = () => {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    // Ensure the page always starts at the top on reload
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-background">
-      <IntroLoader />
+      {/* 3-second boot/loading animation */}
+      {!loaded && <IntroLoader onDone={() => setLoaded(true)} />}
+
       {/* Background effects */}
       <FloatingParticles />
       <CustomCursor />
 
-      
       {/* Gradient overlay at top */}
-      <div 
+      <div
         className="pointer-events-none fixed inset-x-0 top-0 z-0 h-[50vh]"
         style={{
           background: 'radial-gradient(ellipse at top, hsl(260 30% 15% / 0.5), transparent)',
@@ -33,7 +42,11 @@ const Index = () => {
       <Navigation />
 
       {/* Main content */}
-      <main className="relative z-10">
+      <main
+        className={`relative z-10 transition-opacity duration-700 ${
+          loaded ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
         <Hero />
         <About />
         <Timeline />
