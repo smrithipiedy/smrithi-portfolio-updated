@@ -73,7 +73,8 @@ const IntroLoader = () => {
             y="52%"
             dominantBaseline="middle"
             textAnchor="middle"
-            fill="none"
+            fill="url(#sp-grad)"
+            fillOpacity={0}
             stroke="url(#sp-grad)"
             strokeWidth="1.5"
             style={{
@@ -83,7 +84,7 @@ const IntroLoader = () => {
               letterSpacing: '2px',
               strokeDasharray: 520,
               strokeDashoffset: 520,
-              animation: 'draw-monogram 1.8s ease-out forwards, monogram-fill 1s ease-out 1.5s forwards',
+              animation: 'draw-monogram 1.6s ease-out forwards, monogram-fill 0.9s ease-out 1.2s forwards',
             }}
           >
             SP

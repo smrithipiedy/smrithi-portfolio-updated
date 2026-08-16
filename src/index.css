@@ -347,7 +347,7 @@
   }
 
   @keyframes monogram-fill {
-    to { fill: url(#sp-grad); }
+    to { fill-opacity: 0.95; }
   }
 
   @keyframes spin {
