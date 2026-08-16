@@ -365,7 +365,8 @@
   }
 
   @keyframes scribble-draw {
-    to { stroke-dashoffset: 0; }
+    from { opacity: 1; stroke-dashoffset: 100; }
+    to { opacity: 1; stroke-dashoffset: 0; }
   }
 
   @keyframes curtain-up {
