@@ -116,9 +116,10 @@ const IntroLoader = () => {
           strokeWidth="0.5"
           strokeLinecap="round"
           vectorEffect="non-scaling-stroke"
+          pathLength={100}
           style={{
-            strokeDasharray: 140,
-            strokeDashoffset: 140,
+            strokeDasharray: 100,
+            strokeDashoffset: 100,
             filter: 'drop-shadow(0 0 6px hsl(var(--lavender) / 0.7))',
             animation: 'scribble-draw 0.6s cubic-bezier(0.6, 0, 0.4, 1) 2.3s forwards',
           }}
