@@ -35,7 +35,7 @@ const IntroLoader = () => {
       className={`fixed inset-0 z-[100] flex flex-col items-center justify-center crt-scanlines vhs-noise transition-all duration-700 ${
         leaving ? 'pointer-events-none opacity-0 scale-105' : 'opacity-100'
       }`}
-      style={{ background: 'var(--gradient-hero)' }}
+      style={{ background: 'var(--gradient-hero)', position: 'fixed' }}
       aria-hidden={leaving}
     >
       {/* Ambient glow */}
