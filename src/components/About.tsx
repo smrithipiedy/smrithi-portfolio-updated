@@ -5,7 +5,7 @@ import DraggableAccessories from './DraggableAccessories';
 
 const stats = [
   { icon: Code2, label: 'Years Coding', value: '2+' },
-  { icon: Palette, label: 'Projects Built', value: '12+' },
+  { icon: Palette, label: 'Projects Built', value: '10+' },
   { icon: Coffee, label: 'Cups of Coffee', value: '∞' },
   { icon: Sparkles, label: 'PRs Merged', value: '10+' },
 ];
@@ -103,10 +103,10 @@ const About = () => {
               I'm Smrithi, a CS undergrad from Chennai who loves building things for the web. I care about making software that's clean, functional, and actually pleasant to use. I've done 3 internships so far across different settings, from a government cybercrime wing to corporate virtual programs, and I've learned something real from each one.
             </p>
             <p className="mb-6 text-foreground/90 leading-relaxed">
-              I also contribute to open source when I can. There's something satisfying about reading how other people structure their code and actually being able to add to it.
+              I also contribute to open source when I can. There's something satisfying about exploring so many projects,their codebases and actually being able to add to it.
             </p>
             <p className="mb-8 text-foreground/90 leading-relaxed">
-              Outside of all that, I'm usually grinding chess and losing, going down film rabbit holes, making playlists nobody asked for, or just reading. I think staying curious outside of tech makes you better at it too, and that's something I genuinely believe rather than just saying it.
+              Outside of all that, I'm usually grinding chess, going down music and film rabbit holes, making playlists nobody asked for, or just reading books and gaining new knowledge. I think staying curious outside of tech makes you better at it too, and that's something I genuinely believe rather than just saying it.
             </p>
 
             {/* Stats */}

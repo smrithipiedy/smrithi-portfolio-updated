@@ -13,15 +13,15 @@ const skills: Skill[] = [
   // Languages
   { name: 'Python', level: 80, category: 'Languages', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
   { name: 'C', level: 80, category: 'Languages', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg' },
-  { name: 'JavaScript', level: 70, category: 'Languages', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
-  { name: 'TypeScript', level: 60, category: 'Languages', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
-  { name: 'Java', level: 55, category: 'Languages', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
+  { name: 'JavaScript', level: 60, category: 'Languages', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+  { name: 'TypeScript', level: 50, category: 'Languages', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
+  { name: 'Java', level: 40, category: 'Languages', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
   // Frontend
   { name: 'HTML', level: 85, category: 'Frontend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
   { name: 'CSS', level: 85, category: 'Frontend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
-  { name: 'React', level: 80, category: 'Frontend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-  { name: 'Tailwind', level: 78, category: 'Frontend', logo: 'https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg' },
-  { name: 'Next.js', level: 75, category: 'Frontend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-line.svg', invert: true },
+  { name: 'React', level: 70, category: 'Frontend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+  { name: 'Tailwind', level: 70, category: 'Frontend', logo: 'https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg' },
+  { name: 'Next.js', level: 70, category: 'Frontend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-line.svg', invert: true },
   { name: 'Vite', level: 70, category: 'Frontend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg' },
   // Backend
   { name: 'Node.js', level: 70, category: 'Backend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
@@ -38,7 +38,7 @@ const skills: Skill[] = [
   { name: 'Git', level: 60, category: 'Cloud & Tools', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
   { name: 'AWS', level: 50, category: 'Cloud & Tools', logo: 'https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg' },
   { name: 'Google Cloud Platform', level: 60, category: 'Cloud & Tools', logo: 'https://www.vectorlogo.zone/logos/google_cloud/google_cloud-icon.svg' },
-  { name: 'Figma', level: 60, category: 'Cloud & Tools', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
+  { name: 'Figma', level: 50, category: 'Cloud & Tools', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
 ];
 
 const categories = ['Languages', 'Frontend', 'Backend', 'Database', 'Cloud & Tools'];

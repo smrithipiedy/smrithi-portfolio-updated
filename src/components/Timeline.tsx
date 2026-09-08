@@ -49,7 +49,7 @@ const timelineData: TimelineItem[] = [
       'Bagged first place in the intra-college Sparkathon hackathon conducted in February 2026.',
       'Received winner and runner medals in different years across Chess, Table Tennis and Throwball.',
     ],
-    side: 'left',
+    side: 'right',
   },
   {
     id: 3,
@@ -68,7 +68,7 @@ const timelineData: TimelineItem[] = [
       'Learnt the basics and foundations of web development.',
       'Built my portfolio for the first time using HTML, CSS and JavaScript.',
     ],
-    side: 'right',
+    side: 'left',
   },
   {
     id: 5,
@@ -89,13 +89,13 @@ const timelineData: TimelineItem[] = [
     title: 'Python Project Intern',
     organization: 'Infosys Springboard',
     period: 'Feb 2025 - Apr 2025',
-    description: 'Agile Management Dashboard Development.',
+    description: 'Primary capstone:Agile Management Dashboard Development.',
     details: [
       'Developed an Agile Dashboard with sprint tracking and role-based access control.',
       'Integrated performance analytics with leaderboards and data visualizations.',
       'Automated reporting systems using Flask, SQLAlchemy, and scheduled email services.',
     ],
-    side: 'right',
+    side: 'left',
   },
   {
     id: 7,
@@ -103,7 +103,7 @@ const timelineData: TimelineItem[] = [
     title: 'Cybersecurity Project Intern',
     organization: 'Tamil Nadu Cyber Crime Wing, Chennai',
     period: 'Jun 2025 - Jul 2025',
-    description: 'Request Tracking Dashboard for Law Enforcement.',
+    description: 'Primary capstone:Request Tracking Dashboard for Law Enforcement.',
     details: [
       'Built a frontend for case management, history, and real-time communication monitoring.',
       'Implemented automated report generation for police officers using React and TypeScript.',
@@ -117,14 +117,29 @@ const timelineData: TimelineItem[] = [
     title: 'Full Stack Development Intern',
     organization: 'AdroIT Technologies Pvt. Ltd.',
     period: 'Dec 2025 - Feb 2026',
-    description: 'MERN-based Learning Management System.',
+    description: 'Primary capstone: MERN-based Learning Management System.',
     details: [
       'Architected end-to-end MERN stack solutions including MongoDB schema and REST APIs.',
       'Implemented dashboard with Role-Based Access Control (RBAC) for multiple user tiers.',
       'Recognized as a Top Performer in the Naan Mudhalvan IBM AI-EBPL program.',
     ],
-    side: 'right',
+    side: 'left',
   },
+  {
+    id: 9,
+    type: 'work',
+    title: 'Backend AI Engineering Intern',
+    organization: 'FlyRank AI',
+    period: 'Jul 2026 - Aug 2026',
+    description: 'Primary capstone: AI Image Understanding and Content Matching Engine.',
+    details: [
+      'Learned backend fundamentals through assignments covering FastAPI CRUD, database-backed API, Docker, authentication, and web scraping.',
+      'Completed 3 Anthropic certifications and attended mentor-led Backend AI Engineering sessions by the FlyRank AI team.',
+      'Built an AI image-to-content matching engine using image analysis, vector embeddings, and semantic matching as my capstone project.',
+
+    ],
+    side: 'right',
+  }
 ];
 
 const iconMap = {
