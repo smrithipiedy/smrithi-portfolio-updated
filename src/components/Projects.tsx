@@ -34,13 +34,21 @@ const projects: Project[] = [
   },
   {
     id: 3,
+    title: 'AI Image Matching Engine',
+    description:
+      'Backend AI engine that matches images to relevant blog posts using vision AI, vector embeddings, and semantic search.',
+    tags: ['Python', 'FastAPI', 'PostgreSQL', 'pgvector'],
+    githubUrl:
+      'https://github.com/smrithipiedy/AI-Image-Understanding-and-Content-Matching-Engine',
+    featured: true,
+  },
+  {
+    id: 8,
     title: 'BharatVani (Frontend)',
     description: 'Multilingual AI voice interface for India, bridging the digital divide with toll-free access to government services via simple phone calls.',
     tags: ['React', 'AWS', 'AI Voice', 'TypeScript'],
-    image: '/projects/bharatvani.png',
-    liveUrl: 'https://bharatvani.vercel.app/',
     githubUrl: 'https://github.com/smrithipiedy/BharatVani-Frontend',
-    featured: true,
+    featured: false,
   },
   {
     id: 9,
@@ -81,15 +89,7 @@ const projects: Project[] = [
     tags: ['AI', 'Agriculture', 'Agentic AI'],
     githubUrl: 'https://github.com/smrithipiedy/CropKind',
     featured: false,
-  },
-  {
-    id: 8,
-    title: 'Cineboxd',
-    description: 'Letterboxd clone offering movie watchlists, reviews, and notes for cinephiles using TMDB API.',
-    tags: ['Next.js', 'TMDB API', 'CSS'],
-    githubUrl: 'https://github.com/smrithipiedy/Cineboxd',
-    featured: false,
-  },
+  }
 ];
 
 const Projects = () => {
@@ -154,12 +154,11 @@ const Projects = () => {
                 {/* Project image */}
                 <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-secondary to-card">
                   {project.image ? (
-                    <img 
-                      src={project.image} 
+                    <img
+                      src={project.image}
                       alt={project.title}
-                      className={`h-full w-full object-cover transition-transform duration-700 ${
-                        hoveredProject === project.id ? 'scale-110' : 'scale-100'
-                      }`}
+                      className={`h-full w-full object-cover transition-transform duration-700 ${hoveredProject === project.id ? 'scale-110' : 'scale-100'
+                        }`}
                     />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center">

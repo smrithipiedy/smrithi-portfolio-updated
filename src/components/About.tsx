@@ -7,7 +7,7 @@ const stats = [
   { icon: Code2, label: 'Years Coding', value: '2+' },
   { icon: Palette, label: 'Projects Built', value: '10+' },
   { icon: Coffee, label: 'Cups of Coffee', value: '∞' },
-  { icon: Sparkles, label: 'PRs Merged', value: '10+' },
+  { icon: Sparkles, label: 'PRs Merged', value: '12+' },
 ];
 
 const About = () => {
@@ -100,13 +100,13 @@ const About = () => {
               More than just a developer!
             </h3>
             <p className="mb-6 text-foreground/90 leading-relaxed">
-              I'm Smrithi, a CS undergrad from Chennai who loves building things for the web. I care about making software that's clean, functional, and actually pleasant to use. I've done 3 internships so far across different settings, from a government cybercrime wing to corporate virtual programs, and I've learned something real from each one.
+              I'm Smrithi, a CS undergrad from Chennai who likes building things, breaking them, fixing them, and occasionally wondering why I decided to build them in the first place. These days, I'm mostly into AI, software development, and turning random ideas into actual projects. I've also survived 4 internships so far, from Python and full-stack work to backend AI engineering.
             </p>
             <p className="mb-6 text-foreground/90 leading-relaxed">
-              I also contribute to open source when I can. There's something satisfying about exploring so many projects,their codebases and actually being able to add to it.
+              I contribute to open source too, which is basically my excuse for poking around codebases I didn't write and pretending I know what I'm doing until I actually do. There's something genuinely fun about figuring out how someone else's project works and then being able to contribute to it.
             </p>
             <p className="mb-8 text-foreground/90 leading-relaxed">
-              Outside of all that, I'm usually grinding chess, going down music and film rabbit holes, making playlists nobody asked for, or just reading books and gaining new knowledge. I think staying curious outside of tech makes you better at it too, and that's something I genuinely believe rather than just saying it.
+              When I'm not staring at a screen, I'm probably grinding chess, going down music and film rabbit holes, making playlists nobody asked for, reading, or learning something completely unrelated to tech. I like knowing a little bit about a lot of things. It keeps life interesting.
             </p>
 
             {/* Stats */}

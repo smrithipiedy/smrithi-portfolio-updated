@@ -68,15 +68,15 @@ const Hero = () => {
       {/* Decorative elements */}
       <div className="absolute left-10 top-1/4 h-20 w-20 animate-float rounded-lg border border-primary/20 opacity-20" />
       <div className="absolute right-1/4 top-20 h-3 w-3 animate-pulse rounded-full bg-primary/50" />
-      <div 
+      <div
         className="absolute bottom-1/4 left-1/3 h-16 w-16 animate-float-slow opacity-20"
         style={{ animationDelay: '1s' }}
       >
         <svg viewBox="0 0 100 100" className="h-full w-full text-primary/30">
-          <polygon 
-            points="50,10 90,90 10,90" 
-            fill="none" 
-            stroke="currentColor" 
+          <polygon
+            points="50,10 90,90 10,90"
+            fill="none"
+            stroke="currentColor"
             strokeWidth="2"
           />
         </svg>
@@ -85,7 +85,7 @@ const Hero = () => {
 
       <div className="relative z-10 text-center">
         {/* Greeting */}
-        <p 
+        <p
           className="mb-4 font-mono text-sm text-muted-foreground opacity-0 animate-fade-in"
           style={{ animationDelay: '0.2s' }}
         >
@@ -93,7 +93,7 @@ const Hero = () => {
         </p>
 
         {/* Name */}
-        <h1 
+        <h1
           className="mb-6 text-5xl font-bold tracking-tight text-foreground opacity-0 animate-fade-in md:text-7xl"
           style={{ animationDelay: '0.4s' }}
         >
@@ -101,7 +101,7 @@ const Hero = () => {
         </h1>
 
         {/* Typing effect */}
-        <div 
+        <div
           className="mb-8 flex items-center justify-center gap-2 opacity-0 animate-fade-in"
           style={{ animationDelay: '0.6s' }}
         >
@@ -111,7 +111,7 @@ const Hero = () => {
         </div>
 
         {/* Description */}
-        <p 
+        <p
           className="mx-auto mb-10 max-w-2xl text-center text-lg text-foreground/90 opacity-0 animate-fade-in"
           style={{ animationDelay: '0.8s' }}
         >
@@ -120,7 +120,7 @@ const Hero = () => {
         </p>
 
         {/* Social Links */}
-        <div 
+        <div
           className="mb-12 flex items-center justify-center gap-4 opacity-0 animate-fade-in"
           style={{ animationDelay: '1s' }}
         >
@@ -152,7 +152,7 @@ const Hero = () => {
         </div>
 
         {/* CTA Buttons */}
-        <div 
+        <div
           className="flex flex-wrap justify-center gap-4 opacity-0 animate-fade-in"
           style={{ animationDelay: '1.2s' }}
         >
@@ -167,7 +167,7 @@ const Hero = () => {
             size="lg"
             variant="outline"
             className="group relative overflow-hidden px-8 py-6 font-mono border-primary text-primary hover:bg-primary/10"
-            onClick={() => window.open('https://drive.google.com/file/d/16JAGVUBugmz6P2_V-wlFwe89fUcw4OQO/view?usp=sharing', '_blank')}
+            onClick={() => window.open('https://drive.google.com/file/d/1vRNDpESsBssQqbrA6PvqyfyJ3zWJF47T/view?usp=sharing', '_blank')}
           >
             <span className="relative z-10">view_resume()</span>
           </Button>
