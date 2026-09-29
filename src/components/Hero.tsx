@@ -7,9 +7,10 @@ const Hero = () => {
   const [showCursor, setShowCursor] = useState(true);
 
   const sentences = [
-    'Full Stack Software Developer',
+    'AI Engineer In-The-Works',
     'Agentic AI and Gen AI Enthusiast',
-    'Aspiring AI Engineer'
+    'Full-Stack Software Developer',
+    'A True Student of Life'
   ];
 
   const [sentenceIndex, setSentenceIndex] = useState(0);

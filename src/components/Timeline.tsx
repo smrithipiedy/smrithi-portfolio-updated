@@ -134,7 +134,7 @@ const timelineData: TimelineItem[] = [
     description: 'Primary capstone: AI Image Understanding and Content Matching Engine.',
     details: [
       'Learned backend fundamentals through assignments covering FastAPI CRUD, database-backed API, Docker, authentication, and web scraping.',
-      'Completed 3 Anthropic certifications and attended mentor-led Backend AI Engineering sessions by the FlyRank AI team.',
+      'Completed 5 Anthropic certifications and attended mentor-led Backend AI Engineering sessions by the FlyRank AI team.',
       'Built an AI image-to-content matching engine using image analysis, vector embeddings, and semantic matching as my capstone project.',
 
     ],
